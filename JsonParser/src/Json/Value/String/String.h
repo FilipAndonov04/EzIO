@@ -7,8 +7,7 @@ namespace Json {
 
 class String : public Value {
 public:
-	String() = default;
-	String(std::string data);
+	explicit String(std::string data);
 
 	ValueType getType() const override;
 

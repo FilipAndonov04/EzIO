@@ -2,9 +2,6 @@
 
 namespace Json {
 
-Number::Number() 
-    : Number(0.0) {}
-
 Number::Number(double data) 
     : data(data) {}
 

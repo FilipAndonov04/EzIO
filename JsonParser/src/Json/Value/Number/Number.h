@@ -5,7 +5,6 @@ namespace Json {
 
 class Number : public Value {
 public:
-	Number();
 	explicit Number(double data);
 
 	ValueType getType() const override;
