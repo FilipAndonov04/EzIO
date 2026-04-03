@@ -1,13 +1,8 @@
 #include "EzIO/IO/Serializer/Json/JsonSerializer.h"
 #include "EzIO/IO/Deserializer/Json/JsonDeserializer.h"
 #include "EzIO/Value/Value.h"
-#include "EzIO/Value/Number/Number.h"
-#include "EzIO/Value/String/String.h"
-#include "EzIO/Value/Boolean/Boolean.h"
 #include "EzIO/Value/Array/Array.h"
 #include "EzIO/Value/Object/Object.h"
-#include "EzIO/Value/Null/Null.h"
-#include "EzIO/Value/ValueConversion.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -23,36 +18,36 @@ struct Points {
 	std::vector<Point> data;
 };
 
-auto toObject(Point p) {
-	auto o = std::make_unique<Object>();
-	o->addMember("name", String::of(p.name));
-	o->addMember("x", Number::of(p.x));
-	o->addMember("y", Number::of(p.y));
+Object toObject(Point p) {
+	Object o;
+	o.addMember("name", std::string(p.name));
+	o.addMember("x", p.x);
+	o.addMember("y", p.y);
 	return o;
 }
 
 void fromObject(const Object& o, Point& p) {
-	strncpy_s(p.name, valueAs<String>(o["name"]).getData().c_str(), 100);
-	p.x = valueAs<Number>(o["x"]).getData();
-	p.y = valueAs<Number>(o["y"]).getData();
+	strncpy_s(p.name, o["name"].asString().c_str(), 100);
+	p.x = o["x"].asNumber();
+	p.y = o["y"].asNumber();
 }
 
-auto toObject(const Points& points) {
-	auto arr = std::make_unique<Array>();
+Object toObject(const Points& points) {
+	Array arr(points.data.size());
 	for (auto& p : points.data) {
-		arr->pushBack(toObject(p));
+		arr.pushBack(toObject(p));
 	}
 
-	auto o = std::make_unique<Object>();
-	o->addMember("points", std::move(arr));
+	Object o;
+	o.addMember("points", std::move(arr));
 	return o;
 }
 
 void fromObject(const Object& o, Points& points) {
-	auto& arr = valueAs<Array>(o["points"]);
-	for (auto& el : arr.getElements()) {
+	auto& arr = o["points"].asArray();
+	for (const auto& el : arr) {
 		Point p;
-		fromObject(valueAs<Object>(*el), p);
+		fromObject(el.asObject(), p);
 		points.data.push_back(p);
 	}
 }
@@ -71,7 +66,7 @@ int main() {
 	std::ofstream ofs("file.txt");
 	JsonSerializer s(ofs);
 	auto o = toObject(points);
-	s.serialize(*o);
+	s.serialize(o);
 	ofs.close();
 
 	try {
@@ -79,7 +74,7 @@ int main() {
 		JsonDeserializer d(ifs);
 		auto val = d.deserialize();
 		s.setOutputStream(std::cout);
-		val->acceptSerializer(s);
+		s.serialize(val);
 	} catch (const std::exception& e) {
 		std::cout << e.what() << '\n';
 	}

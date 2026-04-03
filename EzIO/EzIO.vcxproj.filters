@@ -24,7 +24,7 @@
     <ClCompile Include="src\EzIO\Exception\Value\ValueException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EzIO\Exception\Value\ValueConversionException.cpp">
+    <ClCompile Include="src\EzIO\Exception\Value\ConversionException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\EzIO\IO\Deserializer\Json\JsonDeserializer.cpp">
@@ -39,19 +39,10 @@
     <ClCompile Include="src\EzIO\Value\Array\Array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EzIO\Value\Boolean\Boolean.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EzIO\Value\Null\Null.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EzIO\Value\Number\Number.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\EzIO\Value\Object\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EzIO\Value\String\String.cpp">
+    <ClCompile Include="src\EzIO\Value\Value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,7 +53,7 @@
     <ClInclude Include="src\EzIO\Exception\Exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\EzIO\Exception\Value\ValueConversionException.h">
+    <ClInclude Include="src\EzIO\Exception\Value\ConversionException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EzIO\Exception\Value\ValueException.h">
@@ -92,28 +83,10 @@
     <ClInclude Include="src\EzIO\Value\Array\Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\EzIO\Value\Boolean\Boolean.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EzIO\Value\Null\Null.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EzIO\Value\Number\Number.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\EzIO\Value\Object\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\EzIO\Value\String\String.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\EzIO\Value\Value.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EzIO\Value\ValueConversion.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EzIO\Value\ValueType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EzIO\IO\ConstantStrings\Json\JsonConstants.h">

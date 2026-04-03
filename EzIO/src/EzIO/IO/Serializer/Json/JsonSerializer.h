@@ -10,12 +10,11 @@ public:
 	JsonSerializer(std::ostream& outputStream);
 
 	void serialize(const Value& value) override;
-	void serialize(const Number& number) override;
-	void serialize(const String& string) override;
-	void serialize(const Boolean& boolean) override;
+	void serialize(double number) override;
+	void serialize(bool boolean) override;
+	void serialize(const std::string& string) override;
 	void serialize(const Array& array) override;
 	void serialize(const Object& object) override;
-	void serialize(const Null& null) override;
 
 	void setOutputStream(std::ostream& outputStream);
 

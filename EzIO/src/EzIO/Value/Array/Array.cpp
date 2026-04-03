@@ -5,98 +5,82 @@
 
 namespace EzIO {
 
-Array::Array(std::vector<std::unique_ptr<Value>>&& elements) 
-    : elements(std::move(elements)) {}
-
-ValueType Array::getStaticType() {
-    return ValueType::Array;
-}
-
-ValueType Array::getType() const {
-    return getStaticType();
-}
-
-std::unique_ptr<Value> Array::clone() const {
-    std::vector<std::unique_ptr<Value>> copies;
-    copies.reserve(elements.size());
-
-    for (const auto& element : elements) {
-        copies.push_back(element->clone());
-    }
-
-    return std::make_unique<Array>(std::move(copies));
-}
-
-void Array::acceptSerializer(Serializer& serializer) const {
-    serializer.serialize(*this);
+Array::Array(size_t initialCapacity) {
+    values.reserve(initialCapacity);
 }
 
 size_t Array::getSize() const {
-    return elements.size();
+	return values.size();
 }
 
 bool Array::isEmpty() const {
-    return getSize() == 0;
+	return values.empty();
 }
 
 void Array::clear() {
-    elements.clear();
-}
-
-const std::vector<std::unique_ptr<Value>>& Array::getElements() const {
-    return elements;
-}
-
-std::vector<std::unique_ptr<Value>>& Array::getElements() {
-    return elements;
-}
-
-const Value& Array::at(size_t index) const {
-    assertAccessIndex(index);
-
-    return *elements[index];
-}
-
-Value& Array::at(size_t index) {
-    assertAccessIndex(index);
-
-    return *elements[index];
+    values.clear();
 }
 
 const Value& Array::operator[](size_t index) const {
-    return at(index);
+	assertAccessIndex(index);
+    return values[index];
 }
 
 Value& Array::operator[](size_t index) {
-    return at(index);
-}
-
-void Array::setElement(size_t index, std::unique_ptr<Value>&& element) {
     assertAccessIndex(index);
-
-    elements[index] = std::move(element);
+    return values[index];
 }
 
-void Array::insert(size_t index, std::unique_ptr<Value>&& element) {
+void Array::pushBack(const Value& value) {
+    values.push_back(value);
+}
+
+void Array::pushBack(Value&& value) {
+    values.push_back(std::move(value));
+}
+
+void Array::insert(size_t index, const Value& value) {
     assertInsertIndex(index);
-
-    elements.insert(elements.begin() + index, std::move(element));
+    values.insert(values.begin() + index, value);
 }
 
-void Array::pushBack(std::unique_ptr<Value>&& element) {
-    elements.push_back(std::move(element));
-}
-
-void Array::erase(size_t index) {
-    assertAccessIndex(index);
-
-    elements.erase(elements.begin() + index);
+void Array::insert(size_t index, Value&& value) {
+    assertInsertIndex(index);
+    values.insert(values.begin() + index, std::move(value));
 }
 
 void Array::popBack() {
     assertNotEmpty();
+    values.pop_back();
+}
 
-    elements.pop_back();
+void Array::erase(size_t index) {
+    assertAccessIndex(index);
+    values.erase(values.begin() + index);
+}
+
+std::vector<Value>::const_iterator Array::cbegin() const {
+    return values.cbegin();
+}
+
+std::vector<Value>::const_iterator Array::cend() const {
+    return values.cend();
+}
+
+std::vector<Value>::const_iterator Array::begin() const {
+    return values.begin();
+}
+
+std::vector<Value>::const_iterator Array::end() const {
+    return values.end();
+}
+
+std::vector<Value>::iterator Array::begin() {
+    return values.begin();
+}
+
+std::vector<Value>::iterator Array::end() {
+    return values.end();
 }
 
 void Array::assertNotEmpty() const {

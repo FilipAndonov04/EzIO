@@ -5,42 +5,40 @@
 
 namespace EzIO {
 
-class Array : public Value {
+class Value;
+
+class Array {
 public:
 	Array() = default;
-	Array(std::vector<std::unique_ptr<Value>>&& elements);
-
-	static ValueType getStaticType();
-
-	ValueType getType() const override;
-	std::unique_ptr<Value> clone() const override;
-
-	void acceptSerializer(Serializer& serializer) const override;
+	Array(size_t initialCapacity);
 
 	size_t getSize() const;
 	bool isEmpty() const;
 	void clear();
 
-	const std::vector<std::unique_ptr<Value>>& getElements() const;
-	std::vector<std::unique_ptr<Value>>& getElements();
-
-	const Value& at(size_t index) const;
-	Value& at(size_t index);
 	const Value& operator[](size_t index) const;
 	Value& operator[](size_t index);
-	void setElement(size_t index, std::unique_ptr<Value>&& element);
 
-	void insert(size_t index, std::unique_ptr<Value>&& element);
-	void pushBack(std::unique_ptr<Value>&& element);
-	void erase(size_t index);
+	void pushBack(const Value& value);
+	void pushBack(Value&& value);
+	void insert(size_t index, const Value& value);
+	void insert(size_t index, Value&& value);
 	void popBack();
+	void erase(size_t index);
+
+	std::vector<Value>::const_iterator cbegin() const;
+	std::vector<Value>::const_iterator cend() const;
+	std::vector<Value>::const_iterator begin() const;
+	std::vector<Value>::const_iterator end() const;
+	std::vector<Value>::iterator begin();
+	std::vector<Value>::iterator end();
 
 private:
 	void assertNotEmpty() const;
 	void assertAccessIndex(size_t index) const;
 	void assertInsertIndex(size_t index) const;
 
-	std::vector<std::unique_ptr<Value>> elements;
+	std::vector<Value> values;
 };
 
 }

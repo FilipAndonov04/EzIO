@@ -1,12 +1,9 @@
 #include "JsonSerializer.h"
 #include "EzIO/IO/ConstantStrings/Json/JsonConstants.h"
 #include "EzIO/Value/Value.h"
-#include "EzIO/Value/Number/Number.h"
-#include "EzIO/Value/String/String.h"
-#include "EzIO/Value/Boolean/Boolean.h"
 #include "EzIO/Value/Array/Array.h"
 #include "EzIO/Value/Object/Object.h"
-#include "EzIO/Value/Null/Null.h"
+#include "EzIO/Exception/IO/IOException.h"
 
 #include <iostream>
 
@@ -16,19 +13,33 @@ JsonSerializer::JsonSerializer(std::ostream& outputStream)
 	: outputStream(&outputStream) {}
 
 void JsonSerializer::serialize(const Value& value) {
-	value.acceptSerializer(*this);
+	if (value.isNumber()) {
+		serialize(value.asNumber());
+	} else if (value.isBoolean()) {
+		serialize(value.asBoolean());
+	} else if (value.isString()) {
+		serialize(value.asString());
+	} else if (value.isArray()) {
+		serialize(value.asArray());
+	} else if (value.isObject()) {
+		serialize(value.asObject());
+	} else if (value.isNull()) {
+		(*outputStream) << JSON_CONSTANT_NULL;
+	} else {
+		throw OutputException("invalid value");
+	}
 }
 
-void JsonSerializer::serialize(const Number& number) { 
-	(*outputStream) << number.getData(); 
+void JsonSerializer::serialize(double number) { 
+	(*outputStream) << number; 
 }
 
-void JsonSerializer::serialize(const String& string) {
+void JsonSerializer::serialize(const std::string& string) {
 	(*outputStream) << '\"'; 
 
-	size_t length = string.getData().length();
+	size_t length = string.length();
 	for (size_t i = 0; i < length; i++) {
-		char cur = string.getData()[i];
+		char cur = string[i];
 
 		switch (cur) {
 		case '\n':
@@ -52,8 +63,8 @@ void JsonSerializer::serialize(const String& string) {
 	(*outputStream) << '\"';
 }
 
-void JsonSerializer::serialize(const Boolean& boolean) {
-	std::string_view text = boolean.getData() ? JSON_CONSTANT_TRUE : JSON_CONSTANT_FALSE;
+void JsonSerializer::serialize(bool boolean) {
+	std::string_view text = boolean ? JSON_CONSTANT_TRUE : JSON_CONSTANT_FALSE;
 	(*outputStream) << text;
 }
 
@@ -68,7 +79,7 @@ void JsonSerializer::serialize(const Array& array) {
 
 	for (size_t i = 0; i < array.getSize(); i++) {
 		startNewLine();
-		serialize(array.at(i));
+		serialize(array[i]);
 		
 		if (i != array.getSize() - 1) {
 			(*outputStream) << ',';
@@ -82,8 +93,7 @@ void JsonSerializer::serialize(const Array& array) {
 }
 
 void JsonSerializer::serialize(const Object& object) {
-	const auto& members = object.getMembers();
-	if (members.empty()) {
+	if (object.getMembersCount() == 0) {
 		(*outputStream) << "{}";
 		return;
 	}
@@ -92,12 +102,12 @@ void JsonSerializer::serialize(const Object& object) {
 	tabs++;
 
 	size_t iterated = 0;
-	for (const auto& member : members) {
+	for (const auto& member : object) {
 		startNewLine();
 		(*outputStream) << '\"' << member.first << "\": ";
-		serialize(*member.second);
+		serialize(member.second);
 
-		if (++iterated != members.size()) {
+		if (++iterated != object.getMembersCount()) {
 			(*outputStream) << ',';
 		}
 		(*outputStream) << '\n';
@@ -106,10 +116,6 @@ void JsonSerializer::serialize(const Object& object) {
 	tabs--;
 	startNewLine();
 	(*outputStream) << "}";
-}
-
-void JsonSerializer::serialize(const Null& null) {
-	(*outputStream) << JSON_CONSTANT_NULL;
 }
 
 void JsonSerializer::setOutputStream(std::ostream& outputStream) {

@@ -10,31 +10,29 @@ class JsonDeserializer : public Deserializer {
 public:
 	JsonDeserializer(std::istream& inputStream);
 
-	std::unique_ptr<Value> deserialize() override;
-	std::unique_ptr<Number> deserializeNumber() override;
-	std::unique_ptr<String> deserializeString() override;
-	std::unique_ptr<Boolean> deserializeBoolean() override;
-	std::unique_ptr<Array> deserializeArray() override;
-	std::unique_ptr<Object> deserializeObject() override;
-	std::unique_ptr<Null> deserializeNull() override;
+	Value deserialize() override;
+	double deserializeNumber() override;
+	std::string deserializeString() override;
+	bool deserializeBoolean() override;
+	Array deserializeArray() override;
+	Object deserializeObject() override;
 
 	void setInputStream(std::istream& inputStream);
 
 private:
-	std::unique_ptr<Value> createValue(JsonToken token);
-	std::unique_ptr<Number> createNumber(JsonToken token);
-	std::unique_ptr<String> createString(JsonToken token);
-	std::unique_ptr<Boolean> createBoolean(JsonToken token);
-	std::unique_ptr<Array> createArray(JsonToken token);
-	std::unique_ptr<Object> createObject(JsonToken token);
-	std::unique_ptr<Null> createNull(JsonToken token);
+	Value createValue(JsonToken token);
+	double createNumber(JsonToken token);
+	std::string createString(JsonToken token);
+	bool createBoolean(JsonToken token);
+	Array createArray(JsonToken token);
+	Object createObject(JsonToken token);
 
-	void verifyTokenType(JsonTokenType expected, JsonTokenType actual) const;
-	void verifyTokenType(JsonTokenType expected, JsonTokenType actual,
+	void assertTokenType(JsonTokenType expected, JsonTokenType actual) const;
+	void assertTokenType(JsonTokenType expected, JsonTokenType actual,
 						 const char* errorMessage) const;
-	void verifyTokenType(JsonTokenType expected1, JsonTokenType expected2, 
+	void assertTokenType(JsonTokenType expected1, JsonTokenType expected2, 
 						 JsonTokenType actual) const;
-	void verifyTokenType(JsonTokenType expected1, JsonTokenType expected2, 
+	void assertTokenType(JsonTokenType expected1, JsonTokenType expected2, 
 						 JsonTokenType actual, const char* errorMessage) const;
 
 	std::istream* inputStream;
