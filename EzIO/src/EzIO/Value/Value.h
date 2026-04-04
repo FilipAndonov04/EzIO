@@ -10,19 +10,25 @@ class Object;
 class Value {
 public:
 	Value() = default;
+	template <typename T>
+	Value(T&&) = delete;
 	Value(double number);
 	Value(bool boolean);
 	Value(std::string string);
 	Value(Array array);
 	Value(Object object);
 	Value(const Value& other);
+	Value(Value& other);
 	Value(Value&& other) noexcept;
+	template <typename T>
+	Value& operator=(T&&) = delete;
 	Value& operator=(double number);
 	Value& operator=(bool boolean);
 	Value& operator=(std::string string);
 	Value& operator=(Array array);
 	Value& operator=(Object object);
 	Value& operator=(const Value& other);
+	Value& operator=(Value& other);
 	Value& operator=(Value&& other) noexcept;
 	~Value();
 

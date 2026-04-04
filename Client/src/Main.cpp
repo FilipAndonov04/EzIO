@@ -1,8 +1,5 @@
-#include "EzIO/IO/Serializer/Json/JsonSerializer.h"
-#include "EzIO/IO/Deserializer/Json/JsonDeserializer.h"
-#include "EzIO/Value/Value.h"
-#include "EzIO/Value/Array/Array.h"
-#include "EzIO/Value/Object/Object.h"
+#include <EzIO/EzIO.h>
+#include "Deck.h"
 
 #include <iostream>
 #include <fstream>
@@ -21,8 +18,8 @@ struct Points {
 Object toObject(Point p) {
 	Object o;
 	o.addMember("name", std::string(p.name));
-	o.addMember("x", p.x);
-	o.addMember("y", p.y);
+	o.addMember("x", double(p.x));
+	o.addMember("y", double(p.y));
 	return o;
 }
 
@@ -53,28 +50,29 @@ void fromObject(const Object& o, Points& points) {
 }
 
 int main() {
-	size_t size;
-	std::cin >> size;
+	Deck deck{
+		{
+			Card{Suit::Red, 8},
+			Card{Suit::Black, 4},
+			Card{Suit::Red, 2}
+		}
+	};
 
-	Points points;
-	while (size-- > 0) {
-		Point p;
-		std::cin >> p.name >> p.x >> p.y;
-		points.data.push_back(p);
-	}
-
-	std::ofstream ofs("file.txt");
+	std::ofstream ofs("file2.txt");
 	JsonSerializer s(ofs);
-	auto o = toObject(points);
+	auto o = deck.serialize();
 	s.serialize(o);
 	ofs.close();
 
 	try {
-		std::ifstream ifs("file.txt");
+		std::ifstream ifs("file2.txt");
 		JsonDeserializer d(ifs);
 		auto val = d.deserialize();
 		s.setOutputStream(std::cout);
 		s.serialize(val);
+		deck.deserialize(val);
+		auto x = deck.serialize();
+		s.serialize(x);
 	} catch (const std::exception& e) {
 		std::cout << e.what() << '\n';
 	}

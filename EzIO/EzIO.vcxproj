@@ -149,6 +149,7 @@
     <ClInclude Include="src\EzIO\Exception\Exception.h" />
     <ClInclude Include="src\EzIO\Exception\Value\ConversionException.h" />
     <ClInclude Include="src\EzIO\Exception\Value\ValueException.h" />
+    <ClInclude Include="src\EzIO\EzIO.h" />
     <ClInclude Include="src\EzIO\IO\ConstantStrings\Json\JsonConstants.h" />
     <ClInclude Include="src\EzIO\IO\Deserializer\Deserializer.h" />
     <ClInclude Include="src\EzIO\IO\Deserializer\Json\JsonDeserializer.h" />

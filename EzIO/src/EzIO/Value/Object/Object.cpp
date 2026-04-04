@@ -46,27 +46,27 @@ void Object::removeMember(const std::string& name) {
 	members.erase(name);
 }
 
-std::unordered_map<std::string, Value>::const_iterator Object::cbegin() const {
+Object::ConstIterator Object::cbegin() const {
 	return members.cbegin();
 }
 
-std::unordered_map<std::string, Value>::const_iterator Object::cend() const {
+Object::ConstIterator Object::cend() const {
 	return members.cend();
 }
 
-std::unordered_map<std::string, Value>::const_iterator Object::begin() const {
+Object::ConstIterator Object::begin() const {
 	return members.begin();
 }
 
-std::unordered_map<std::string, Value>::const_iterator Object::end() const {
+Object::ConstIterator Object::end() const {
 	return members.end();
 }
 
-std::unordered_map<std::string, Value>::iterator Object::begin() {
+Object::Iterator Object::begin() {
 	return members.begin();
 }
 
-std::unordered_map<std::string, Value>::iterator Object::end() {
+Object::Iterator Object::end() {
 	return members.end();
 }
 

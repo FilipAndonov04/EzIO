@@ -24,6 +24,10 @@ Value::Value(const Value& other) {
     copyFrom(other);
 }
 
+Value::Value(Value& other) {
+    copyFrom(other);
+}
+
 Value::Value(Value&& other) noexcept {
     moveFrom(std::move(other));
 }
@@ -64,6 +68,14 @@ Value& Value::operator=(Object object) {
 }
 
 Value& Value::operator=(const Value& other) {
+    if (this != &other) {
+        clear();
+        copyFrom(other);
+    }
+    return *this;
+}
+
+Value& Value::operator=(Value& other) {
     if (this != &other) {
         clear();
         copyFrom(other);

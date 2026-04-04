@@ -8,6 +8,10 @@ namespace EzIO {
 
 class Object {
 public:
+	using Iterator = std::unordered_map<std::string, Value>::iterator;
+	using ConstIterator = std::unordered_map<std::string, Value>::const_iterator;
+
+public:
 	Object() = default;
 	Object(size_t initialMembersCapacity);
 
@@ -22,12 +26,12 @@ public:
 	void addMember(const std::string& name, Value&& value);
 	void removeMember(const std::string& name);
 
-	std::unordered_map<std::string, Value>::const_iterator cbegin() const;
-	std::unordered_map<std::string, Value>::const_iterator cend() const;
-	std::unordered_map<std::string, Value>::const_iterator begin() const;
-	std::unordered_map<std::string, Value>::const_iterator end() const;
-	std::unordered_map<std::string, Value>::iterator begin();
-	std::unordered_map<std::string, Value>::iterator end();
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	Iterator begin();
+	Iterator end();
 
 private:
 	void assertHasMember(const std::string& name) const;

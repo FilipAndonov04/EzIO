@@ -9,6 +9,10 @@ class Value;
 
 class Array {
 public:
+	using Iterator = std::vector<Value>::iterator;
+	using ConstIterator = std::vector<Value>::const_iterator;
+
+public:
 	Array() = default;
 	Array(size_t initialCapacity);
 
@@ -26,12 +30,12 @@ public:
 	void popBack();
 	void erase(size_t index);
 
-	std::vector<Value>::const_iterator cbegin() const;
-	std::vector<Value>::const_iterator cend() const;
-	std::vector<Value>::const_iterator begin() const;
-	std::vector<Value>::const_iterator end() const;
-	std::vector<Value>::iterator begin();
-	std::vector<Value>::iterator end();
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	Iterator begin();
+	Iterator end();
 
 private:
 	void assertNotEmpty() const;

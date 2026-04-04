@@ -59,27 +59,27 @@ void Array::erase(size_t index) {
     values.erase(values.begin() + index);
 }
 
-std::vector<Value>::const_iterator Array::cbegin() const {
+Array::ConstIterator Array::cbegin() const {
     return values.cbegin();
 }
 
-std::vector<Value>::const_iterator Array::cend() const {
+Array::ConstIterator Array::cend() const {
     return values.cend();
 }
 
-std::vector<Value>::const_iterator Array::begin() const {
+Array::ConstIterator Array::begin() const {
     return values.begin();
 }
 
-std::vector<Value>::const_iterator Array::end() const {
+Array::ConstIterator Array::end() const {
     return values.end();
 }
 
-std::vector<Value>::iterator Array::begin() {
+Array::Iterator Array::begin() {
     return values.begin();
 }
 
-std::vector<Value>::iterator Array::end() {
+Array::Iterator Array::end() {
     return values.end();
 }
 

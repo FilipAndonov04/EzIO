@@ -2,14 +2,14 @@
 	"cards": [
 		{
 			"suit": "red",
-			"rank": 69
+			"rank": 8
+		},
+		{
+			"suit": "black",
+			"rank": 4
 		},
 		{
 			"suit": "red",
-			"rank": 10
-		},
-		{
-			"suit": "blue",
 			"rank": 2
 		}
 	]
