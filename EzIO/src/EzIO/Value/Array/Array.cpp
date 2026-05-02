@@ -3,7 +3,7 @@
 #include "EzIO/IO/Deserializer/Deserializer.h"
 #include "EzIO/Exception/Value/ValueException.h"
 
-namespace EzIO {
+namespace ezio {
 
 Array::Array(size_t initialCapacity) {
     values.reserve(initialCapacity);

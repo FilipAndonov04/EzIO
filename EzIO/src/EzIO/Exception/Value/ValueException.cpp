@@ -1,6 +1,6 @@
 #include "ValueException.h"
 
-namespace EzIO {
+namespace ezio {
 
 ValueException::ValueException(const char* msg)
 	: Exception(msg) {}

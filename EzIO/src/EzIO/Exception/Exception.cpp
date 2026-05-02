@@ -1,6 +1,6 @@
 #include "Exception.h"
 
-namespace EzIO {
+namespace ezio {
 
 Exception::Exception(const char* msg)
 	: std::exception(msg) {}

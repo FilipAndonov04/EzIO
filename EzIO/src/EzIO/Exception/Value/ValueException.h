@@ -1,7 +1,7 @@
 #pragma once
 #include "EzIO/Exception/Exception.h"
 
-namespace EzIO {
+namespace ezio {
 
 class ValueException : public Exception {
 public:

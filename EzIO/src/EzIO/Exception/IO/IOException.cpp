@@ -1,6 +1,6 @@
 #include "IOException.h"
 
-namespace EzIO {
+namespace ezio {
 
 IOException::IOException(const char* msg)
 	: Exception(msg) {}

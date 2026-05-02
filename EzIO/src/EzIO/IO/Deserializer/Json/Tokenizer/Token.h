@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace EzIO {
+namespace ezio {
 
 struct JsonToken {
 	JsonTokenType type;

@@ -1,7 +1,7 @@
 #pragma once
 #include "EzIO/IO/Deserializer/Json/Tokenizer/Token.h"
 
-namespace EzIO {
+namespace ezio {
 
 class JsonTokenizer {
 public:

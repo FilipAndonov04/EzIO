@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace EzIO {
+namespace ezio {
 
 class Exception : public std::exception {
 public:

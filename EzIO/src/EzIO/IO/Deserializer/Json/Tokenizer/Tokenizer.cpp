@@ -4,7 +4,7 @@
 
 #include <sstream>
 
-namespace EzIO {
+namespace ezio {
 
 constexpr char ERROR_MESSAGE_INPUT_STREAM_ENDED[] = "input stream ended";
 

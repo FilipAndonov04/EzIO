@@ -1,6 +1,6 @@
 #include "ConversionException.h"
 
-namespace EzIO {
+namespace ezio {
 
 ConversionException::ConversionException(const char* msg)
 	: ValueException(msg) {}

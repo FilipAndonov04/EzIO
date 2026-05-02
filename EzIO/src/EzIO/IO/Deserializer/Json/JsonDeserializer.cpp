@@ -2,7 +2,7 @@
 #include "EzIO/Exception/IO/IOException.h"
 #include "EzIO/IO/ConstantStrings/Json/JsonConstants.h"
 
-namespace EzIO {
+namespace ezio {
 
 JsonDeserializer::JsonDeserializer(std::istream& inputStream) 
 	: inputStream(&inputStream) {}

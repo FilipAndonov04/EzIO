@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace EzIO {
+namespace ezio {
 
 class Value;
 

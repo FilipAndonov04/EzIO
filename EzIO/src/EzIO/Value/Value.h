@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace EzIO {
+namespace ezio {
 
 class Array;
 class Object;

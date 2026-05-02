@@ -13,13 +13,13 @@ struct Card {
 	Suit suit;
 	unsigned rank;
 
-	EzIO::Value serialize() const;
-	void deserialize(const EzIO::Value& value);
+	ezio::Value serialize() const;
+	void deserialize(const ezio::Value& value);
 };
 
 struct Deck {
 	std::vector<Card> cards;
 
-	EzIO::Value serialize() const;
-	void deserialize(const EzIO::Value& value);
+	ezio::Value serialize() const;
+	void deserialize(const ezio::Value& value);
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include "EzIO/Exception/Value/ValueException.h"
 
-namespace EzIO {
+namespace ezio {
 
 class ConversionException : public ValueException {
 public:

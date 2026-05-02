@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace EzIO {
+namespace ezio {
 
 class Object {
 public:

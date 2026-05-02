@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-namespace EzIO {
+namespace ezio {
 
 JsonSerializer::JsonSerializer(std::ostream& outputStream) 
 	: outputStream(&outputStream) {}

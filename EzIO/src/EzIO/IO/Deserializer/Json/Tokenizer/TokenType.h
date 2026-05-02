@@ -1,6 +1,6 @@
 #pragma once
 
-namespace EzIO {
+namespace ezio {
 
 enum class JsonTokenType {
 	Text,

@@ -3,7 +3,7 @@
 #include "EzIO/Value/Object/Object.h"
 #include "EzIO/Exception/Value/ConversionException.h"
 
-namespace EzIO {
+namespace ezio {
 
 Value::Value(double number)
     : number(new double(number)) {}

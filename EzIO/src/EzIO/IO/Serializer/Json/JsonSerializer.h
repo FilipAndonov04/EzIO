@@ -3,7 +3,7 @@
 
 #include <ios>
 
-namespace EzIO {
+namespace ezio {
 
 class JsonSerializer : public Serializer {
 public:

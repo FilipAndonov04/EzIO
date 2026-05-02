@@ -4,7 +4,7 @@
 
 #include <ios>
 
-namespace EzIO {
+namespace ezio {
 
 class JsonDeserializer : public Deserializer {
 public:

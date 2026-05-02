@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-namespace EzIO {
+namespace ezio {
 
 constexpr std::string_view JSON_CONSTANT_TRUE{"true"};
 constexpr std::string_view JSON_CONSTANT_FALSE{"false"};

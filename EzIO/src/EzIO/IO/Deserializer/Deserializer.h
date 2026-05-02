@@ -3,7 +3,7 @@
 #include "EzIO/Value/Array/Array.h"
 #include "EzIO/Value/Object/Object.h"
 
-namespace EzIO {
+namespace ezio {
 
 class Deserializer {
 public:
