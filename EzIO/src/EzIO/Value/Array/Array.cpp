@@ -1,4 +1,5 @@
 #include "Array.h"
+#include "EzIO/Value/Value.h"
 #include "EzIO/IO/Serializer/Serializer.h"
 #include "EzIO/IO/Deserializer/Deserializer.h"
 #include "EzIO/Exception/Value/ValueException.h"

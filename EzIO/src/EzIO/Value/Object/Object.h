@@ -1,10 +1,11 @@
 #pragma once
-#include "EzIO/Value/Value.h"
 
 #include <string>
 #include <unordered_map>
 
 namespace ezio {
+
+class Value;
 
 class Object {
 public:

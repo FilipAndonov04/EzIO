@@ -1,6 +1,10 @@
 #pragma once
 
 #include <string>
+#include <variant>
+
+#include "EzIO/Value/Array/Array.h"
+#include "EzIO/Value/Object/Object.h"
 
 namespace ezio {
 
@@ -17,9 +21,9 @@ public:
 	Value(std::string string);
 	Value(Array array);
 	Value(Object object);
-	Value(const Value& other);
-	Value(Value& other);
-	Value(Value&& other) noexcept;
+	Value(const Value& other) = default;
+	Value(Value& other) = default;
+	Value(Value&& other) noexcept = default;
 	template <typename T>
 	Value& operator=(T&&) = delete;
 	Value& operator=(double number);
@@ -27,10 +31,10 @@ public:
 	Value& operator=(std::string string);
 	Value& operator=(Array array);
 	Value& operator=(Object object);
-	Value& operator=(const Value& other);
-	Value& operator=(Value& other);
-	Value& operator=(Value&& other) noexcept;
-	~Value();
+	Value& operator=(const Value& other) = default;
+	Value& operator=(Value& other) = default;
+	Value& operator=(Value&& other) noexcept = default;
+	~Value() = default;
 
 	bool isNull() const;
 	bool isNumber() const;
@@ -54,14 +58,8 @@ public:
 
 private:
 	void assertConversion(bool isValid, const char* msg) const;
-	void copyFrom(const Value& other);
-	void moveFrom(Value&& other) noexcept;
 
-	double* number = nullptr;
-	bool* boolean = nullptr;
-	std::string* string = nullptr;
-	Array* array = nullptr;
-	Object* object = nullptr;
+	std::variant<std::monostate, double, bool, std::string, Array, Object> data;
 };
 
 }

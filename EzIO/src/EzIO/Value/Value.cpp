@@ -1,227 +1,130 @@
 #include "Value.h"
-#include "EzIO/Value/Array/Array.h"
-#include "EzIO/Value/Object/Object.h"
 #include "EzIO/Exception/Value/ConversionException.h"
 
 namespace ezio {
 
 Value::Value(double number)
-    : number(new double(number)) {}
+    : data(number) {}
 
 Value::Value(bool boolean) 
-    : boolean(new bool(boolean)) {}
+    : data(boolean) {}
 
 Value::Value(std::string string) 
-    : string(new std::string(std::move(string))) {}
+    : data(std::move(string)) {}
 
 Value::Value(Array array) 
-    : array(new Array(std::move(array))) {}
+    : data(std::move(array)) {}
 
 Value::Value(Object object) 
-    : object(new Object(std::move(object))) {}
-
-Value::Value(const Value& other) {
-    copyFrom(other);
-}
-
-Value::Value(Value& other) {
-    copyFrom(other);
-}
-
-Value::Value(Value&& other) noexcept {
-    moveFrom(std::move(other));
-}
+    : data(std::move(object)) {}
 
 Value& Value::operator=(double number) {
-    clear();
-    this->number = new double(number);
-
+    data = number;
     return *this;
 }
 
 Value& Value::operator=(bool boolean) {
-    clear();
-    this->boolean = new bool(boolean);
-
+    data = boolean;
     return *this;
 }
 
 Value& Value::operator=(std::string string) {
-    clear();
-    this->string = new std::string(std::move(string));
-
+    data = std::move(string);
     return *this;
 }
 
 Value& Value::operator=(Array array) {
-    clear();
-    this->array = new Array(std::move(array));
-
+    data = std::move(array);
     return *this;
 }
 
 Value& Value::operator=(Object object) {
-    clear();
-    this->object = new Object(std::move(object));
-
+    data = std::move(object);
     return *this;
-}
-
-Value& Value::operator=(const Value& other) {
-    if (this != &other) {
-        clear();
-        copyFrom(other);
-    }
-    return *this;
-}
-
-Value& Value::operator=(Value& other) {
-    if (this != &other) {
-        clear();
-        copyFrom(other);
-    }
-    return *this;
-}
-
-Value& Value::operator=(Value&& other) noexcept {
-    if (this != &other) {
-        clear();
-        moveFrom(std::move(other));
-    }
-    return *this;
-}
-
-Value::~Value() {
-    clear();
 }
 
 bool Value::isNull() const {
-    return !isNumber() && !isBoolean() && !isString() && 
-        !isArray() && !isObject();
+    return holds_alternative<std::monostate>(data);
 }
 
 bool Value::isNumber() const {
-    return number;
+    return std::holds_alternative<double>(data);
 }
 
 bool Value::isBoolean() const {
-    return boolean;
+    return std::holds_alternative<bool>(data);
 }
 
 bool Value::isString() const {
-    return string;
+    return std::holds_alternative<std::string>(data);
 }
 
 bool Value::isArray() const {
-    return array;
+    return std::holds_alternative<Array>(data);
 }
 
 bool Value::isObject() const {
-    return object;
+    return std::holds_alternative<Object>(data);
 }
 
 double Value::asNumber() const {
     assertConversion(isNumber(), "value is not a number");
-    return *number;
+    return std::get<double>(data);
 }
 
 double& Value::asNumber() {
     assertConversion(isNumber(), "value is not a number");
-    return *number;
+    return std::get<double>(data);
 }
 
 bool Value::asBoolean() const {
     assertConversion(isBoolean(), "value is not a boolean");
-    return *boolean;
+    return std::get<bool>(data);
 }
 
 bool& Value::asBoolean() {
     assertConversion(isBoolean(), "value is not a boolean");
-    return *boolean;
+    return std::get<bool>(data);
 }
 
 const std::string& Value::asString() const {
     assertConversion(isString(), "value is not a string");
-    return *string;
+    return std::get<std::string>(data);
 }
 
 std::string& Value::asString() {
     assertConversion(isString(), "value is not a string");
-    return *string;
+    return std::get<std::string>(data);
 }
 
 const Array& Value::asArray() const {
     assertConversion(isArray(), "value is not an array");
-    return *array;
+    return std::get<Array>(data);
 }
 
 Array& Value::asArray() {
     assertConversion(isArray(), "value is not an array");
-    return *array;
+    return std::get<Array>(data);
 }
 
 const Object& Value::asObject() const {
     assertConversion(isObject(), "value is not an object");
-    return *object;
+    return std::get<Object>(data);
 }
 
 Object& Value::asObject() {
     assertConversion(isObject(), "value is not an object");
-    return *object;
+    return std::get<Object>(data);
 }
 
 void Value::clear() {
-    if (number) {
-        delete number;
-    } else if (boolean) {
-        delete boolean;
-    } else if (string) {
-        delete string;
-    } else if (array) {
-        delete array;
-    } else if (object) {
-        delete object;
-    }
-
-    number = nullptr;
-    boolean = nullptr;
-    string = nullptr;
-    array = nullptr;
-    object = nullptr;
+    data.emplace<std::monostate>();
 }
 
 void Value::assertConversion(bool isValid, const char* msg) const {
     if (!isValid) {
         throw ConversionException(msg);
     }
-}
-
-void Value::copyFrom(const Value& other) {
-    if (other.number) {
-        number = new double(*other.number);
-    } else if (other.boolean) {
-        boolean = new bool(*other.boolean);
-    } else if (other.string) {
-        string = new std::string(*other.string);
-    } else if (other.array) {
-        array = new Array(*other.array);
-    } else if (other.object) {
-        object = new Object(*other.object);
-    }
-}
-
-void Value::moveFrom(Value&& other) noexcept {
-    number = other.number;
-    boolean = other.boolean;
-    string = other.string;
-    array = other.array;
-    object = other.object;
-
-    other.number = nullptr;
-    other.boolean = nullptr;
-    other.string = nullptr;
-    other.array = nullptr;
-    other.object = nullptr;
 }
 
 }
