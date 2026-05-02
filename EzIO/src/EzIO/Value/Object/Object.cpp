@@ -10,7 +10,7 @@ Object::Object(size_t initialMembersCapacity) {
 	members.reserve(initialMembersCapacity);
 }
 
-size_t Object::getMembersCount() const {
+size_t Object::getMemberCount() const {
 	return members.size();
 }
 

@@ -16,7 +16,7 @@ public:
 	Object() = default;
 	Object(size_t initialMembersCapacity);
 
-	size_t getMembersCount() const;
+	size_t getMemberCount() const;
 	void clear();
 
 	const Value& operator[](const std::string& name) const;
