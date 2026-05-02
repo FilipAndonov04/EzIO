@@ -8,6 +8,7 @@ add_executable(client)
 target_link_libraries(client PRIVATE ezio)
 
 add_subdirectory(EzIO)
-add_subdirectory(Client)
 target_include_directories(ezio PUBLIC EzIO/src)
+
+add_subdirectory(Client)
 target_include_directories(client PRIVATE Client/src)
