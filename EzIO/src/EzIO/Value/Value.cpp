@@ -43,6 +43,10 @@ Value& Value::operator=(Object object) {
     return *this;
 }
 
+void Value::clear() {
+    data.emplace<std::monostate>();
+}
+
 bool Value::isNull() const {
     return holds_alternative<std::monostate>(data);
 }
@@ -117,8 +121,45 @@ Object& Value::asObject() {
     return std::get<Object>(data);
 }
 
-void Value::clear() {
-    data.emplace<std::monostate>();
+const double* Value::asNumberPtr() const {
+    return std::get_if<double>(&data);
+}
+
+double* Value::asNumberPtr() {
+    return std::get_if<double>(&data);
+}
+
+const bool* Value::asBooleanPtr() const {
+    return std::get_if<bool>(&data);
+}
+
+bool* Value::asBooleanPtr() {
+    return std::get_if<bool>(&data);
+
+}
+
+const std::string* Value::asStringPtr() const {
+    return std::get_if<std::string>(&data);
+}
+
+std::string* Value::asStringPtr() {
+    return std::get_if<std::string>(&data);
+}
+
+const Array* Value::asArrayPtr() const {
+    return std::get_if<Array>(&data);
+}
+
+Array* Value::asArrayPtr() {
+    return std::get_if<Array>(&data);
+}
+
+const Object* Value::asObjectPtr() const {
+    return std::get_if<Object>(&data);
+}
+
+Object* Value::asObjectPtr() {
+    return std::get_if<Object>(&data);
 }
 
 void Value::assertConversion(bool isValid, const char* msg) const {

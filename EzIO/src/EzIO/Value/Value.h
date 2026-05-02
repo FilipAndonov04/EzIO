@@ -36,6 +36,8 @@ public:
 	Value& operator=(Value&& other) noexcept = default;
 	~Value() = default;
 
+	void clear();
+
 	bool isNull() const;
 	bool isNumber() const;
 	bool isBoolean() const;
@@ -53,8 +55,17 @@ public:
 	Array& asArray();
 	const Object& asObject() const;
 	Object& asObject();
-
-	void clear();
+	
+	const double* asNumberPtr() const;
+	double* asNumberPtr();
+	const bool* asBooleanPtr() const;
+	bool* asBooleanPtr();
+	const std::string* asStringPtr() const;
+	std::string* asStringPtr();
+	const Array* asArrayPtr() const;
+	Array* asArrayPtr();
+	const Object* asObjectPtr() const;
+	Object* asObjectPtr();
 
 private:
 	void assertConversion(bool isValid, const char* msg) const;
