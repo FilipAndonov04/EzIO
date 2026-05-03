@@ -3,8 +3,8 @@
 #include <string>
 #include <variant>
 
-#include "EzIO/Value/Array/Array.h"
-#include "EzIO/Value/Object/Object.h"
+#include "EzIO/Value/Array.h"
+#include "EzIO/Value/Object.h"
 
 namespace ezio {
 

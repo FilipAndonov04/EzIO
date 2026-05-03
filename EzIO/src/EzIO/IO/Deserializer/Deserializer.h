@@ -1,7 +1,6 @@
 #pragma once
+
 #include "EzIO/Value/Value.h"
-#include "EzIO/Value/Array/Array.h"
-#include "EzIO/Value/Object/Object.h"
 
 namespace ezio {
 
