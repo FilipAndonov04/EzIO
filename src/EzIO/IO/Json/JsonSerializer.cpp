@@ -36,10 +36,7 @@ void JsonSerializer::serialize(double number) {
 void JsonSerializer::serialize(const std::string& string) {
 	(*outputStream) << '\"'; 
 
-	size_t length = string.length();
-	for (size_t i = 0; i < length; i++) {
-		char cur = string[i];
-
+	for (char cur : string) {
 		switch (cur) {
 		case '\n':
 			(*outputStream) << "\\n";
