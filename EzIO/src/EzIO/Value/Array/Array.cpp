@@ -1,8 +1,9 @@
 #include "Array.h"
+
 #include "EzIO/Value/Value.h"
 #include "EzIO/IO/Serializer/Serializer.h"
 #include "EzIO/IO/Deserializer/Deserializer.h"
-#include "EzIO/Exception/Value/ValueException.h"
+#include "EzIO/Exception/Exception.h"
 
 namespace ezio {
 
@@ -86,19 +87,19 @@ Array::Iterator Array::end() {
 
 void Array::assertNotEmpty() const {
     if (isEmpty()) {
-        throw ValueException("empty array");
+        throw Exception("empty array");
     }
 }
 
 void Array::assertAccessIndex(size_t index) const {
     if (index >= getSize()) {
-        throw ValueException("insert index out of bound");
+        throw Exception("insert index out of bound");
     }
 }
 
 void Array::assertInsertIndex(size_t index) const {
     if (index > getSize()) {
-        throw ValueException("access index out of bound");
+        throw Exception("access index out of bound");
     }
 }
 

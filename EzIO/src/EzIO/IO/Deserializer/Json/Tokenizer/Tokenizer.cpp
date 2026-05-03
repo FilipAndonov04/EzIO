@@ -1,5 +1,5 @@
 #include "Tokenizer.h"
-#include "EzIO/Exception/IO/IOException.h"
+#include "EzIO/Exception/IOException.h"
 #include "EzIO/IO/ConstantStrings/Json/JsonConstants.h"
 
 #include <sstream>
@@ -11,7 +11,7 @@ constexpr char ERROR_MESSAGE_INPUT_STREAM_ENDED[] = "input stream ended";
 JsonToken JsonTokenizer::parseToken(std::istream& is) const {
 	char ch;
 	if (!(is >> ch)) {
-		throw InputException(ERROR_MESSAGE_INPUT_STREAM_ENDED);
+		throw IOException(ERROR_MESSAGE_INPUT_STREAM_ENDED);
 	}
 
 	if (isSign(ch)) {
@@ -47,7 +47,7 @@ JsonToken JsonTokenizer::parseSign(char sign) const {
 		case ',':
 			return JsonToken{JsonTokenType::Comma, ","};
 		default:
-			throw InputException("invalid token sign");
+			throw IOException("invalid token sign");
 		}
 	}(sign);
 	return token;
@@ -60,7 +60,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 	while (true) {
 		char ch;
 		if (!(is >> ch)) {
-			throw InputException("text does not have a closing quote");
+			throw IOException("text does not have a closing quote");
 		}
 
 		if (isEscaped) {
@@ -78,7 +78,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 				result.push_back('\"');
 				break;
 			default:
-				throw InputException("invalid escaped character");
+				throw IOException("invalid escaped character");
 			}
 
 			isEscaped = false;
@@ -101,7 +101,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 JsonToken JsonTokenizer::parseNumber(std::istream& is) const {
 	double num;
 	if (!(is >> num)) {
-		throw InputException("could not read a number");
+		throw IOException("could not read a number");
 	}
 
 	return JsonToken{JsonTokenType::Number, std::to_string(num)};
@@ -116,7 +116,7 @@ JsonToken JsonTokenizer::parseKeyword(std::string_view keyword) const {
 		return JsonToken{JsonTokenType::Null, std::string(JSON_CONSTANT_NULL)};
 	}
 
-	throw InputException("invalid token");
+	throw IOException("invalid token");
 }
 
 bool JsonTokenizer::isSign(char sign) const {
@@ -150,7 +150,7 @@ std::string JsonTokenizer::readKeyword(std::istream& is) const {
 	while (true) {
 		char ch;
 		if (!is.get(ch)) {
-			throw InputException(ERROR_MESSAGE_INPUT_STREAM_ENDED);
+			throw IOException(ERROR_MESSAGE_INPUT_STREAM_ENDED);
 		}
 
 		if (ch < 'a' || ch > 'z') {

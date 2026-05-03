@@ -1,9 +1,10 @@
 #include "JsonSerializer.h"
+
 #include "EzIO/IO/ConstantStrings/Json/JsonConstants.h"
 #include "EzIO/Value/Value.h"
 #include "EzIO/Value/Array/Array.h"
 #include "EzIO/Value/Object/Object.h"
-#include "EzIO/Exception/IO/IOException.h"
+#include "EzIO/Exception/IOException.h"
 
 #include <iostream>
 
@@ -26,7 +27,7 @@ void JsonSerializer::serialize(const Value& value) {
 	} else if (value.isNull()) {
 		(*outputStream) << JSON_CONSTANT_NULL;
 	} else {
-		throw OutputException("invalid value");
+		throw IOException("invalid value");
 	}
 }
 
@@ -93,7 +94,7 @@ void JsonSerializer::serialize(const Array& array) {
 }
 
 void JsonSerializer::serialize(const Object& object) {
-	if (object.getMembersCount() == 0) {
+	if (object.getMemberCount() == 0) {
 		(*outputStream) << "{}";
 		return;
 	}
@@ -107,7 +108,7 @@ void JsonSerializer::serialize(const Object& object) {
 		(*outputStream) << '\"' << member.first << "\": ";
 		serialize(member.second);
 
-		if (++iterated != object.getMembersCount()) {
+		if (++iterated != object.getMemberCount()) {
 			(*outputStream) << ',';
 		}
 		(*outputStream) << '\n';

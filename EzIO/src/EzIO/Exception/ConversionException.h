@@ -1,9 +1,9 @@
 #pragma once
-#include "EzIO/Exception/Value/ValueException.h"
+#include "EzIO/Exception/Exception.h"
 
 namespace ezio {
 
-class ConversionException : public ValueException {
+class ConversionException : public Exception {
 public:
 	explicit ConversionException(const char* msg);
 	explicit ConversionException(const std::string& msg);

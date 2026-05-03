@@ -3,9 +3,9 @@
 namespace ezio {
 
 ConversionException::ConversionException(const char* msg)
-	: ValueException(msg) {}
+	: Exception(msg) {}
 
 ConversionException::ConversionException(const std::string& msg)
-	: ValueException(msg) {}
+	: Exception(msg) {}
 
 }

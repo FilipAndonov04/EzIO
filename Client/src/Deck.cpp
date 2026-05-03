@@ -8,7 +8,7 @@ ezio::Value Card::serialize() const {
 }
 
 void Card::deserialize(const ezio::Value& value) {
-    ezio::Object o = value.asObject();
+    const ezio::Object& o = value.asObject();
     suit = o["suit"].asString() == "black" ? Suit::Black : o["suit"].asString() == "blue" ? Suit::Blue : Suit::Red;
     rank = o["rank"].asNumber();
 }
@@ -25,12 +25,12 @@ ezio::Value Deck::serialize() const {
 }
 
 void Deck::deserialize(const ezio::Value& value) {
-    ezio::Object o = value.asObject();
+    const ezio::Object& o = value.asObject();
     ezio::Array arr = o["cards"].asArray();
 
     cards.clear();
     cards.resize(arr.getSize());
-    int i = 0;
+    size_t i = 0;
     for (auto& el : arr) {
         cards[i++].deserialize(el);
     }

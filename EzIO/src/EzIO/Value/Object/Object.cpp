@@ -1,8 +1,9 @@
 #include "Object.h"
+
 #include "EzIO/Value/Value.h"
 #include "EzIO/IO/Serializer/Serializer.h"
 #include "EzIO/IO/Deserializer/Deserializer.h"
-#include "EzIO/Exception/Value/ValueException.h"
+#include "EzIO/Exception/Exception.h"
 
 namespace ezio {
 
@@ -73,13 +74,13 @@ Object::Iterator Object::end() {
 
 void Object::assertHasMember(const std::string& name) const {
 	if (!hasMember(name)) {
-		throw ValueException("member does not exist");
+		throw Exception("member does not exist");
 	}
 }
 
 void Object::assertDoesNotHaveMember(const std::string& name) const {
 	if (hasMember(name)) {
-		throw ValueException("member exists");
+		throw Exception("member exists");
 	}
 }
 
