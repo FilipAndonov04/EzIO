@@ -151,7 +151,7 @@ std::string JsonTokenizer::readKeyword(std::istream& is) const {
 	while (true) {
 		char ch;
 		if (!is.get(ch)) {
-			throw IOException(ERROR_MESSAGE_INPUT_STREAM_ENDED);
+			return res;
 		}
 
 		if (ch < 'a' || ch > 'z') {
