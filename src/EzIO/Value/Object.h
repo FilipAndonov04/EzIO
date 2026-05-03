@@ -27,17 +27,18 @@ public:
 	void addMember(const std::string& name, Value&& value);
 	void removeMember(const std::string& name);
 
-	ConstIterator cbegin() const;
-	ConstIterator cend() const;
-	ConstIterator begin() const;
-	ConstIterator end() const;
 	Iterator begin();
 	Iterator end();
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
 
 private:
 	void assertHasMember(const std::string& name) const;
 	void assertDoesNotHaveMember(const std::string& name) const;
 
+private:
 	std::unordered_map<std::string, Value> members;
 };
 

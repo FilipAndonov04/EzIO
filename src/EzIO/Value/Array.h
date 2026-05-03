@@ -29,18 +29,19 @@ public:
 	void popBack();
 	void erase(size_t index);
 
-	ConstIterator cbegin() const;
-	ConstIterator cend() const;
-	ConstIterator begin() const;
-	ConstIterator end() const;
 	Iterator begin();
 	Iterator end();
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
 
 private:
 	void assertNotEmpty() const;
 	void assertAccessIndex(size_t index) const;
 	void assertInsertIndex(size_t index) const;
 
+private:
 	std::vector<Value> values;
 };
 

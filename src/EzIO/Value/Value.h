@@ -8,12 +8,12 @@
 
 namespace ezio {
 
-class Array;
-class Object;
-
 class Value {
 public:
 	Value() = default;
+	Value(const Value&) = default;
+	Value(Value&) = default;
+	Value(Value&&) noexcept = default;
 	template <typename T>
 	Value(T&&) = delete;
 	Value(double number);
@@ -21,9 +21,9 @@ public:
 	Value(std::string string);
 	Value(Array array);
 	Value(Object object);
-	Value(const Value& other) = default;
-	Value(Value& other) = default;
-	Value(Value&& other) noexcept = default;
+	Value& operator=(const Value&) = default;
+	Value& operator=(Value&) = default;
+	Value& operator=(Value&&) noexcept = default;
 	template <typename T>
 	Value& operator=(T&&) = delete;
 	Value& operator=(double number);
@@ -31,9 +31,6 @@ public:
 	Value& operator=(std::string string);
 	Value& operator=(Array array);
 	Value& operator=(Object object);
-	Value& operator=(const Value& other) = default;
-	Value& operator=(Value& other) = default;
-	Value& operator=(Value&& other) noexcept = default;
 	~Value() = default;
 
 	void clear();
@@ -70,6 +67,7 @@ public:
 private:
 	void assertConversion(bool isValid, const char* msg) const;
 
+private:
 	std::variant<std::monostate, double, bool, std::string, Array, Object> data;
 };
 
