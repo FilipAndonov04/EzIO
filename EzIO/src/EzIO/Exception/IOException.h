@@ -1,4 +1,5 @@
 #pragma once
+
 #include "EzIO/Exception/Exception.h"
 
 namespace ezio {
