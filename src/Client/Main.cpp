@@ -56,14 +56,14 @@ int main() {
 		}
 	};
 
-	std::ofstream ofs(RESOURCE_PATH "file2.txt");
+	std::ofstream ofs(RESOURCE_PATH "file2.json");
 	ezio::JsonSerializer s(ofs);
 	auto o = deck.serialize();
 	s.serialize(o);
 	ofs.close();
 
 	try {
-		std::ifstream ifs(RESOURCE_PATH "file2.txt");
+		std::ifstream ifs(RESOURCE_PATH "file2.json");
 		ezio::JsonDeserializer d(ifs);
 		auto val = d.deserialize();
 		s.setOutputStream(std::cout);
