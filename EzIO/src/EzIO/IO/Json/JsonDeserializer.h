@@ -1,8 +1,9 @@
 #pragma once
-#include "EzIO/IO/Deserializer/Deserializer.h"
-#include "EzIO/IO/Deserializer/Json/Tokenizer/Tokenizer.h"
 
 #include <ios>
+
+#include "EzIO/IO/Deserializer.h"
+#include "EzIO/IO/Json/Tokenizer/Tokenizer.h"
 
 namespace ezio {
 
@@ -35,6 +36,7 @@ private:
 	void assertTokenType(JsonTokenType expected1, JsonTokenType expected2, 
 						 JsonTokenType actual, const char* errorMessage) const;
 
+private:
 	std::istream* inputStream;
 	JsonTokenizer tokenizer;
 };

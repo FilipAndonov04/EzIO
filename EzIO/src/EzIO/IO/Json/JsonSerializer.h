@@ -1,7 +1,8 @@
 #pragma once
-#include "EzIO/IO/Serializer/Serializer.h"
 
 #include <ios>
+
+#include "EzIO/IO/Serializer.h"
 
 namespace ezio {
 
@@ -21,6 +22,7 @@ public:
 private:
 	void startNewLine();
 
+private:
 	std::ostream* outputStream;
 	unsigned tabs = 0;
 };

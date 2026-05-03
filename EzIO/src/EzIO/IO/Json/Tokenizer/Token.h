@@ -1,7 +1,8 @@
 #pragma once
-#include "EzIO/IO/Deserializer/Json/Tokenizer/TokenType.h"
 
 #include <string>
+
+#include "EzIO/IO/Json/Tokenizer/TokenType.h"
 
 namespace ezio {
 

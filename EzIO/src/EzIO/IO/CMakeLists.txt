@@ -1,3 +1,6 @@
-add_subdirectory(ConstantStrings)
-add_subdirectory(Serializer)
-add_subdirectory(Deserializer)
+target_sources(ezio PRIVATE
+    Serializer.h
+    Deserializer.h
+)
+
+add_subdirectory(Json)

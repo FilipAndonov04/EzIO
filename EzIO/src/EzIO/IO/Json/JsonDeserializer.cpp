@@ -1,7 +1,7 @@
 #include "JsonDeserializer.h"
 
 #include "EzIO/Exception/IOException.h"
-#include "EzIO/IO/ConstantStrings/Json/JsonConstants.h"
+#include "EzIO/IO/Json/JsonConstants.h"
 
 namespace ezio {
 
