@@ -10,6 +10,11 @@ class Object;
 
 class Serializer {
 public:
+	Serializer() = default;
+	Serializer(const Serializer&) = delete;
+	Serializer& operator=(const Serializer&) = delete;
+	virtual ~Serializer() = default;
+
 	virtual void serialize(const Value& value) = 0;
 	virtual void serialize(double number) = 0;
 	virtual void serialize(bool boolean) = 0;

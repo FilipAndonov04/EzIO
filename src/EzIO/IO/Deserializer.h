@@ -6,6 +6,11 @@ namespace ezio {
 
 class Deserializer {
 public:
+	Deserializer() = default;
+	Deserializer(const Deserializer&) = delete;
+	Deserializer& operator=(const Deserializer&) = delete;
+	virtual ~Deserializer() = default;
+
 	virtual Value deserialize() = 0;
 	virtual double deserializeNumber() = 0;
 	virtual std::string deserializeString() = 0;
