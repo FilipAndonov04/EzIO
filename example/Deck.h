@@ -5,8 +5,7 @@
 
 enum class Suit {
 	Black,
-	Red,
-	Blue
+	Red
 };
 
 struct Card {

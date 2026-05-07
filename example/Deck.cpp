@@ -2,14 +2,14 @@
 
 ezio::Value Card::serialize() const {
     ezio::Object o;
-    o.addMember("suit", suit == Suit::Blue ? std::string("blue") : suit == Suit::Black ? std::string("black") : std::string("red"));
+    o.addMember("suit", suit == Suit::Black ? std::string("black") : std::string("red"));
     o.addMember("rank", double(rank));
     return o;
 }
 
 void Card::deserialize(const ezio::Value& value) {
     const ezio::Object& o = value.asObject();
-    suit = o["suit"].asString() == "black" ? Suit::Black : o["suit"].asString() == "blue" ? Suit::Blue : Suit::Red;
+    suit = o["suit"].asString() == "black" ? Suit::Black : Suit::Red;
     rank = o["rank"].asNumber();
 }
 
