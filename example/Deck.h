@@ -1,7 +1,8 @@
 #pragma once
-#include "EzIO/EzIO.h"
 
 #include <vector>
+
+#include "EzIO/EzIO.h"
 
 enum class Suit {
 	Black,

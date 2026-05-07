@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(ezio)
 
 add_library(ezio)
-target_include_directories(ezio PUBLIC src)
+target_include_directories(ezio PUBLIC include PRIVATE src)
 
 add_executable(client)
 target_link_libraries(client PRIVATE ezio)
