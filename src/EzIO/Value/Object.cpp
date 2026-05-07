@@ -1,7 +1,6 @@
 #include "Object.h"
 
 #include "EzIO/Value/Value.h"
-#include "EzIO/Exception/Exception.h"
 
 namespace ezio {
 
@@ -18,12 +17,10 @@ void Object::clear() {
 }
 
 const Value& Object::operator[](const std::string& name) const {
-	assertHasMember(name);
 	return members.at(name);
 }
 
 Value& Object::operator[](const std::string& name) {
-	assertHasMember(name);
 	return members.at(name);
 }
 
@@ -32,34 +29,15 @@ bool Object::hasMember(const std::string& name) const {
 }
 
 void Object::addMember(const std::string& name, const Value& value) { 
-	assertDoesNotHaveMember(name);
-	members.insert(std::make_pair(name, value));
+	members[name] = value;
 }
 
 void Object::addMember(const std::string& name, Value&& value) {
-	assertDoesNotHaveMember(name);
-	members.insert(std::make_pair(name, std::move(value)));
+	members[name] = std::move(value);
 }
 
 void Object::removeMember(const std::string& name) {
-	assertHasMember(name);
 	members.erase(name);
-}
-
-Object::ConstIterator Object::cbegin() const {
-	return members.cbegin();
-}
-
-Object::ConstIterator Object::cend() const {
-	return members.cend();
-}
-
-Object::ConstIterator Object::begin() const {
-	return members.begin();
-}
-
-Object::ConstIterator Object::end() const {
-	return members.end();
 }
 
 Object::Iterator Object::begin() {
@@ -70,16 +48,20 @@ Object::Iterator Object::end() {
 	return members.end();
 }
 
-void Object::assertHasMember(const std::string& name) const {
-	if (!hasMember(name)) {
-		throw Exception("member does not exist");
-	}
+Object::ConstIterator Object::begin() const {
+	return members.begin();
 }
 
-void Object::assertDoesNotHaveMember(const std::string& name) const {
-	if (hasMember(name)) {
-		throw Exception("member exists");
-	}
+Object::ConstIterator Object::end() const {
+	return members.end();
+}
+
+Object::ConstIterator Object::cbegin() const {
+	return members.cbegin();
+}
+
+Object::ConstIterator Object::cend() const {
+	return members.cend();
 }
 
 }
