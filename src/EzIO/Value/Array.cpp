@@ -1,7 +1,8 @@
 #include "Array.h"
 
+#include <stdexcept>
+
 #include "EzIO/Value/Value.h"
-#include "EzIO/Exception/Exception.h"
 
 namespace ezio {
 
@@ -85,19 +86,19 @@ Array::Iterator Array::end() {
 
 void Array::assertNotEmpty() const {
     if (isEmpty()) {
-        throw Exception("empty array");
+        throw std::out_of_range("empty array");
     }
 }
 
 void Array::assertAccessIndex(size_t index) const {
     if (index >= getSize()) {
-        throw Exception("insert index out of bound");
+        throw std::out_of_range("insert index out of bound");
     }
 }
 
 void Array::assertInsertIndex(size_t index) const {
     if (index > getSize()) {
-        throw Exception("access index out of bound");
+        throw std::out_of_range("access index out of bound");
     }
 }
 
