@@ -1,5 +1,5 @@
 target_sources(ezio PRIVATE
-    Exception.h
-    IOException.h
-    ConversionException.h
+    Exception.hpp
+    IOException.hpp
+    ConversionException.hpp
 )

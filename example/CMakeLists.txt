@@ -1,5 +1,5 @@
 target_sources(client PRIVATE
     Main.cpp
-    Deck.h
+    Deck.hpp
     Deck.cpp
 )

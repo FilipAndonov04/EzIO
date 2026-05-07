@@ -1,5 +1,5 @@
 target_sources(ezio PRIVATE
-    EzIO.h
+    EzIO.hpp
 )
 
 add_subdirectory(Value)

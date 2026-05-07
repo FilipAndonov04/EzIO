@@ -1,4 +1,4 @@
-#include "EzIO/Exception/IOException.h"
+#include "EzIO/Exception/IOException.hpp"
 
 namespace ezio {
 

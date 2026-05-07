@@ -1,6 +1,5 @@
 target_sources(ezio PRIVATE
-    Tokenizer.h
-    Tokenizer.cpp
-    Token.h
-    TokenType.h
+    Tokenizer.hpp
+    Token.hpp
+    TokenType.hpp
 )

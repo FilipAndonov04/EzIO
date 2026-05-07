@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "EzIO/IO/Json/Tokenizer/TokenType.h"
+#include "EzIO/IO/Json/Tokenizer/TokenType.hpp"
 
 namespace ezio {
 

@@ -1,6 +1,6 @@
 target_sources(ezio PRIVATE
-    Serializer.h
-    Deserializer.h
+    Serializer.hpp
+    Deserializer.hpp
 )
 
 add_subdirectory(Json)

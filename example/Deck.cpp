@@ -1,4 +1,4 @@
-#include "Deck.h"
+#include "Deck.hpp"
 
 ezio::Value Card::serialize() const {
     ezio::Object o;

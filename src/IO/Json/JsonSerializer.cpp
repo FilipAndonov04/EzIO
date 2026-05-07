@@ -1,10 +1,10 @@
-#include "EzIO/IO/Json/JsonSerializer.h"
+#include "EzIO/IO/Json/JsonSerializer.hpp"
 
 #include <iostream>
 
-#include "EzIO/Value/Value.h"
-#include "EzIO/Exception/IOException.h"
-#include "IO/Json/JsonConstants.h"
+#include "EzIO/Value/Value.hpp"
+#include "EzIO/Exception/IOException.hpp"
+#include "IO/Json/JsonConstants.hpp"
 
 namespace ezio {
 

@@ -1,8 +1,9 @@
-#include <EzIO/EzIO.h>
-#include "Deck.h"
-
 #include <iostream>
 #include <fstream>
+
+#include <EzIO/EzIO.hpp>
+
+#include "Deck.hpp"
 
 struct Point {
 	char name[20];
