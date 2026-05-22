@@ -10,7 +10,6 @@ target_link_libraries(client PRIVATE ezio)
 target_include_directories(client PRIVATE src/Client)
 
 add_subdirectory(src)
-add_subdirectory(include)
 add_subdirectory(example)
 
 # create resources symlink in build directory
