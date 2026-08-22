@@ -2,7 +2,7 @@
 
 #include <ios>
 
-#include "EzIO/IO/Serializer.hpp"
+#include "IO/Serializer.hpp"
 
 namespace ezio {
 

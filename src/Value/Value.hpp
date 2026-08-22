@@ -3,8 +3,8 @@
 #include <string>
 #include <variant>
 
-#include "EzIO/Value/Array.hpp"
-#include "EzIO/Value/Object.hpp"
+#include "Value/Array.hpp"
+#include "Value/Object.hpp"
 
 namespace ezio {
 

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include <EzIO/EzIO.hpp>
+#include <EzIO.hpp>
 
 enum class Suit {
 	Black,

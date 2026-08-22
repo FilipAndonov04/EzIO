@@ -2,8 +2,8 @@
 
 #include <ios>
 
-#include "EzIO/IO/Deserializer.hpp"
-#include "EzIO/IO/Json/Tokenizer/Tokenizer.hpp"
+#include "IO/Deserializer.hpp"
+#include "IO/Json/Tokenizer/Tokenizer.hpp"
 
 namespace ezio {
 

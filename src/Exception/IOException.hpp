@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EzIO/Exception/Exception.hpp"
+#include "Exception/Exception.hpp"
 
 namespace ezio {
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <EzIO/EzIO.hpp>
+#include <EzIO.hpp>
 
 #include "Deck.hpp"
 

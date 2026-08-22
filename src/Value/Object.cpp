@@ -1,6 +1,6 @@
-#include "EzIO/Value/Object.hpp"
+#include "Value/Object.hpp"
 
-#include "EzIO/Value/Value.hpp"
+#include "Value/Value.hpp"
 
 namespace ezio {
 

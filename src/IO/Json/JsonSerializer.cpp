@@ -1,9 +1,9 @@
-#include "EzIO/IO/Json/JsonSerializer.hpp"
+#include "IO/Json/JsonSerializer.hpp"
 
 #include <iostream>
 
-#include "EzIO/Value/Value.hpp"
-#include "EzIO/Exception/IOException.hpp"
+#include "Value/Value.hpp"
+#include "Exception/IOException.hpp"
 #include "IO/Json/JsonConstants.hpp"
 
 namespace ezio {

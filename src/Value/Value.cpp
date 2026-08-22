@@ -1,6 +1,6 @@
-#include "EzIO/Value/Value.hpp"
+#include "Value/Value.hpp"
 
-#include "EzIO/Exception/ConversionException.hpp"
+#include "Exception/ConversionException.hpp"
 
 namespace ezio {
 

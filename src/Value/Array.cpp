@@ -1,8 +1,8 @@
-#include "EzIO/Value/Array.hpp"
+#include "Value/Array.hpp"
 
 #include <stdexcept>
 
-#include "EzIO/Value/Value.hpp"
+#include "Value/Value.hpp"
 
 namespace ezio {
 
