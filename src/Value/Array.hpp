@@ -15,6 +15,13 @@ public:
 	Array() = default;
 	Array(size_t initialCapacity);
 
+	Iterator begin();
+	Iterator end();
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
+
 	size_t getSize() const;
 	bool isEmpty() const;
 	void clear();
@@ -28,13 +35,6 @@ public:
 	void insert(size_t index, Value&& value);
 	void popBack();
 	void erase(size_t index);
-
-	Iterator begin();
-	Iterator end();
-	ConstIterator begin() const;
-	ConstIterator end() const;
-	ConstIterator cbegin() const;
-	ConstIterator cend() const;
 
 private:
 	void assertNotEmpty() const;

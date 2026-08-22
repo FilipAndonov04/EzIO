@@ -10,6 +10,30 @@ Array::Array(size_t initialCapacity) {
     values.reserve(initialCapacity);
 }
 
+Array::Iterator Array::begin() {
+    return values.begin();
+}
+
+Array::Iterator Array::end() {
+    return values.end();
+}
+
+Array::ConstIterator Array::begin() const {
+    return values.begin();
+}
+
+Array::ConstIterator Array::end() const {
+    return values.end();
+}
+
+Array::ConstIterator Array::cbegin() const {
+    return values.cbegin();
+}
+
+Array::ConstIterator Array::cend() const {
+    return values.cend();
+}
+
 size_t Array::getSize() const {
 	return values.size();
 }
@@ -58,30 +82,6 @@ void Array::popBack() {
 void Array::erase(size_t index) {
     assertAccessIndex(index);
     values.erase(values.begin() + index);
-}
-
-Array::ConstIterator Array::cbegin() const {
-    return values.cbegin();
-}
-
-Array::ConstIterator Array::cend() const {
-    return values.cend();
-}
-
-Array::ConstIterator Array::begin() const {
-    return values.begin();
-}
-
-Array::ConstIterator Array::end() const {
-    return values.end();
-}
-
-Array::Iterator Array::begin() {
-    return values.begin();
-}
-
-Array::Iterator Array::end() {
-    return values.end();
 }
 
 void Array::assertNotEmpty() const {

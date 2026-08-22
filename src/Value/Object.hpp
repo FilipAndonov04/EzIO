@@ -16,6 +16,13 @@ public:
 	Object() = default;
 	Object(size_t initialMembersCapacity);
 
+	Iterator begin();
+	Iterator end();
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
+
 	size_t getMemberCount() const;
 	void clear();
 
@@ -26,13 +33,6 @@ public:
 	void addMember(const std::string& name, const Value& value);
 	void addMember(const std::string& name, Value&& value);
 	void removeMember(const std::string& name);
-
-	Iterator begin();
-	Iterator end();
-	ConstIterator begin() const;
-	ConstIterator end() const;
-	ConstIterator cbegin() const;
-	ConstIterator cend() const;
 
 private:
 	std::unordered_map<std::string, Value> members;
