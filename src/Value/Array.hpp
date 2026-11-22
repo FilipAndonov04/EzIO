@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "Verify.hpp"
+
 namespace ezio {
 
 class Value;
@@ -13,18 +15,19 @@ public:
 
 public:
 	Array() = default;
-	Array(size_t initialCapacity);
+	explicit Array(size_t initialCapacity) { values.reserve(initialCapacity); }
 
-	Iterator begin();
-	Iterator end();
-	ConstIterator begin() const;
-	ConstIterator end() const;
-	ConstIterator cbegin() const;
-	ConstIterator cend() const;
+	Iterator begin() noexcept { return values.begin(); }
+	Iterator end() noexcept { return values.end(); }
+	ConstIterator begin() const noexcept { return values.begin();}
+	ConstIterator end() const noexcept { return values.end();}
+	ConstIterator cbegin() const noexcept { return values.cbegin();}
+	ConstIterator cend() const noexcept { return values.cend(); }
 
-	size_t getSize() const;
-	bool isEmpty() const;
-	void clear();
+	size_t size() const noexcept { return values.size(); }
+	bool isEmpty() const noexcept { return values.empty(); }
+
+	void clear() noexcept { values.clear(); }
 
 	const Value& operator[](size_t index) const;
 	Value& operator[](size_t index);
@@ -35,11 +38,6 @@ public:
 	void insert(size_t index, Value&& value);
 	void popBack();
 	void erase(size_t index);
-
-private:
-	void assertNotEmpty() const;
-	void assertAccessIndex(size_t index) const;
-	void assertInsertIndex(size_t index) const;
 
 private:
 	std::vector<Value> values;

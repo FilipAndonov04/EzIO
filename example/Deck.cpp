@@ -29,7 +29,7 @@ void Deck::deserialize(const ezio::Value& value) {
     ezio::Array arr = o["cards"].asArray();
 
     cards.clear();
-    cards.resize(arr.getSize());
+    cards.resize(arr.size());
     size_t i = 0;
     for (auto& el : arr) {
         cards[i++].deserialize(el);

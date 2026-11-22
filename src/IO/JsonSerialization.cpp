@@ -78,11 +78,11 @@ void serializeJson(std::ostream& os, const Array& array) {
 	os << "[\n";
 	tabs++;
 
-	for (size_t i = 0; i < array.getSize(); i++) {
+	for (size_t i = 0; i < array.size(); i++) {
 		startNewLine(os);
 		serializeJson(os, array[i]);
 		
-		if (i != array.getSize() - 1) {
+		if (i != array.size() - 1) {
 			os << ',';
 		}
 		os << '\n';
