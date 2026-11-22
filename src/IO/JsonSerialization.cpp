@@ -30,7 +30,7 @@ void serializeJson(std::ostream& os, const Value& value) {
 	} else if (value.isNull()) {
 		os << JSON_CONSTANT_NULL;
 	} else {
-		throw std::exception("invalid value");
+		throw std::runtime_error("invalid value");
 	}
 }
 

@@ -19,9 +19,9 @@ public:
 
 	Iterator begin() noexcept { return values.begin(); }
 	Iterator end() noexcept { return values.end(); }
-	ConstIterator begin() const noexcept { return values.begin();}
-	ConstIterator end() const noexcept { return values.end();}
-	ConstIterator cbegin() const noexcept { return values.cbegin();}
+	ConstIterator begin() const noexcept { return values.begin(); }
+	ConstIterator end() const noexcept { return values.end(); }
+	ConstIterator cbegin() const noexcept { return values.cbegin(); }
 	ConstIterator cend() const noexcept { return values.cend(); }
 
 	size_t size() const noexcept { return values.size(); }

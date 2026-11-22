@@ -25,7 +25,7 @@ static JsonToken parseSign(char sign) {
 		case ',':
 			return JsonToken{JsonTokenType::Comma, ","};
 		default:
-			throw std::exception("invalid token sign");
+			throw std::runtime_error("invalid token sign");
 		}
 	}(sign);
 	return token;
@@ -38,7 +38,7 @@ static JsonToken parseText(std::istream& is) {
 	while (true) {
 		char ch;
 		if (!(is >> ch)) {
-			throw std::exception("text does not have a closing quote");
+			throw std::runtime_error("text does not have a closing quote");
 		}
 
 		if (isEscaped) {
@@ -56,7 +56,7 @@ static JsonToken parseText(std::istream& is) {
 				result.push_back('\"');
 				break;
 			default:
-				throw std::exception("invalid escaped character");
+				throw std::runtime_error("invalid escaped character");
 			}
 
 			isEscaped = false;
@@ -79,7 +79,7 @@ static JsonToken parseText(std::istream& is) {
 static JsonToken parseNumber(std::istream& is) {
 	double num;
 	if (!(is >> num)) {
-		throw std::exception("could not read a number");
+		throw std::runtime_error("could not read a number");
 	}
 
 	return JsonToken{JsonTokenType::Number, std::to_string(num)};
@@ -94,7 +94,7 @@ static JsonToken parseKeyword(std::string_view keyword) {
 		return JsonToken{JsonTokenType::Null, std::string(JSON_CONSTANT_NULL)};
 	}
 
-	throw std::exception("invalid token");
+	throw std::runtime_error("invalid token");
 }
 
 static bool isSign(char sign) {
@@ -143,7 +143,7 @@ static std::string readKeyword(std::istream& is) {
 JsonToken parseJsonToken(std::istream& is) {
 	char ch;
 	if (!(is >> ch)) {
-		throw std::exception(ERROR_MESSAGE_INPUT_STREAM_ENDED);
+		throw std::runtime_error(ERROR_MESSAGE_INPUT_STREAM_ENDED);
 	}
 
 	if (isSign(ch)) {
