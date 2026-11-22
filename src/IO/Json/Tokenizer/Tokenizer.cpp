@@ -1,8 +1,8 @@
 #include "IO/Json/Tokenizer/Tokenizer.hpp"
 
 #include <sstream>
+#include <stdexcept>
 
-#include "Exception/IOException.hpp"
 #include "IO/Json/JsonConstants.hpp"
 
 namespace ezio {
@@ -12,7 +12,7 @@ constexpr char ERROR_MESSAGE_INPUT_STREAM_ENDED[] = "input stream ended";
 JsonToken JsonTokenizer::parseToken(std::istream& is) const {
 	char ch;
 	if (!(is >> ch)) {
-		throw IOException(ERROR_MESSAGE_INPUT_STREAM_ENDED);
+		throw std::exception(ERROR_MESSAGE_INPUT_STREAM_ENDED);
 	}
 
 	if (isSign(ch)) {
@@ -48,7 +48,7 @@ JsonToken JsonTokenizer::parseSign(char sign) const {
 		case ',':
 			return JsonToken{JsonTokenType::Comma, ","};
 		default:
-			throw IOException("invalid token sign");
+			throw std::exception("invalid token sign");
 		}
 	}(sign);
 	return token;
@@ -61,7 +61,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 	while (true) {
 		char ch;
 		if (!(is >> ch)) {
-			throw IOException("text does not have a closing quote");
+			throw std::exception("text does not have a closing quote");
 		}
 
 		if (isEscaped) {
@@ -79,7 +79,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 				result.push_back('\"');
 				break;
 			default:
-				throw IOException("invalid escaped character");
+				throw std::exception("invalid escaped character");
 			}
 
 			isEscaped = false;
@@ -102,7 +102,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 JsonToken JsonTokenizer::parseNumber(std::istream& is) const {
 	double num;
 	if (!(is >> num)) {
-		throw IOException("could not read a number");
+		throw std::exception("could not read a number");
 	}
 
 	return JsonToken{JsonTokenType::Number, std::to_string(num)};
@@ -117,7 +117,7 @@ JsonToken JsonTokenizer::parseKeyword(std::string_view keyword) const {
 		return JsonToken{JsonTokenType::Null, std::string(JSON_CONSTANT_NULL)};
 	}
 
-	throw IOException("invalid token");
+	throw std::exception("invalid token");
 }
 
 bool JsonTokenizer::isSign(char sign) const {

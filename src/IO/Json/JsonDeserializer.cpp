@@ -1,6 +1,5 @@
 #include "IO/Json/JsonDeserializer.hpp"
 
-#include "Exception/IOException.hpp"
 #include "IO/Json/JsonConstants.hpp"
 
 namespace ezio {
@@ -52,7 +51,7 @@ Value JsonDeserializer::createValue(JsonToken token) {
 	case JsonTokenType::Null:
 		return Value();
 	default:
-		throw IOException("invalid token");
+		throw std::exception("invalid token");
 	}
 }
 
@@ -140,7 +139,7 @@ void JsonDeserializer::assertTokenType(JsonTokenType expected, JsonTokenType act
 void JsonDeserializer::assertTokenType(JsonTokenType expected, JsonTokenType actual, 
 									   const char* errorMessage) const {
 	if (actual != expected) {
-		throw IOException(errorMessage);
+		throw std::exception(errorMessage);
 	}
 }
 
@@ -152,7 +151,7 @@ void JsonDeserializer::assertTokenType(JsonTokenType expected1, JsonTokenType ex
 void JsonDeserializer::assertTokenType(JsonTokenType expected1, JsonTokenType expected2, 
 									   JsonTokenType actual, const char* errorMessage) const {
 	if (actual != expected1 && actual != expected2) {
-		throw IOException(errorMessage);
+		throw std::exception(errorMessage);
 	}
 }
 

@@ -69,6 +69,7 @@ int main() {
 		auto val = d.deserialize();
 		s.setOutputStream(std::cout);
 		s.serialize(val);
+		std::cout << '\n';
 		deck.deserialize(val);
 		auto x = deck.serialize();
 		s.serialize(x);

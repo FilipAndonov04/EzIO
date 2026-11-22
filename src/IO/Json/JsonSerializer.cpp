@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "Value/Value.hpp"
-#include "Exception/IOException.hpp"
 #include "IO/Json/JsonConstants.hpp"
 
 namespace ezio {
@@ -25,7 +24,7 @@ void JsonSerializer::serialize(const Value& value) {
 	} else if (value.isNull()) {
 		(*outputStream) << JSON_CONSTANT_NULL;
 	} else {
-		throw IOException("invalid value");
+		throw std::exception("invalid value");
 	}
 }
 

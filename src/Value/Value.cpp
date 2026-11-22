@@ -1,7 +1,5 @@
 #include "Value/Value.hpp"
 
-#include "Exception/ConversionException.hpp"
-
 namespace ezio {
 
 Value::Value(double number)
@@ -165,7 +163,7 @@ Object* Value::asObjectPtr() {
 
 void Value::assertConversion(bool isValid, const char* msg) const {
     if (!isValid) {
-        throw ConversionException(msg);
+        throw std::exception(msg);
     }
 }
 
