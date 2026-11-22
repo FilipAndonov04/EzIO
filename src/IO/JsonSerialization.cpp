@@ -1,4 +1,4 @@
-#include "IO/JsonSerializer.hpp"
+#include "IO/JsonSerialization.hpp"
 
 #include <ostream>
 

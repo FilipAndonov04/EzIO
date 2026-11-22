@@ -1,6 +1,6 @@
 target_sources(ezio PRIVATE
-    JsonSerializer.cpp
-    JsonDeserializer.cpp
-    "JsonParsing.cpp"
+    JsonSerialization.cpp
+    JsonDeserialization.cpp
+    JsonParsing.cpp
     JsonConstants.hpp
 )

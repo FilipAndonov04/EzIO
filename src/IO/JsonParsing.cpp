@@ -1,6 +1,6 @@
 #include "IO/JsonParsing.hpp"
 
-#include <sstream>
+#include <istream>
 #include <stdexcept>
 
 #include "IO/JsonConstants.hpp"
