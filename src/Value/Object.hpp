@@ -24,6 +24,7 @@ public:
 	ConstIterator cend() const noexcept { return members.cend(); }
 
 	size_t size() const noexcept { return members.size(); }
+	bool isEmpty() const noexcept { return members.empty(); }
 
 	void clear() noexcept { members.clear(); }
 
