@@ -14,17 +14,18 @@ public:
 
 public:
 	Object() = default;
-	Object(size_t initialMembersCapacity);
+	explicit Object(size_t initialCapacity) { members.reserve(initialCapacity); }
 
-	Iterator begin();
-	Iterator end();
-	ConstIterator begin() const;
-	ConstIterator end() const;
-	ConstIterator cbegin() const;
-	ConstIterator cend() const;
+	Iterator begin() noexcept { return members.begin(); }
+	Iterator end() noexcept { return members.end(); }
+	ConstIterator begin() const noexcept { return members.begin(); }
+	ConstIterator end() const noexcept { return members.end(); }
+	ConstIterator cbegin() const noexcept { return members.cbegin(); }
+	ConstIterator cend() const noexcept { return members.cend(); }
 
-	size_t getMemberCount() const;
-	void clear();
+	size_t size() const noexcept { return members.size(); }
+
+	void clear() noexcept { members.clear(); }
 
 	const Value& operator[](const std::string& name) const;
 	Value& operator[](const std::string& name);

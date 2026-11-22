@@ -1,6 +1,7 @@
 #include "Value/Array.hpp"
 
 #include "Value/Value.hpp"
+#include "Verify.hpp"
 
 namespace ezio {
 

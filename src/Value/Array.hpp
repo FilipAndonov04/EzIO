@@ -2,8 +2,6 @@
 
 #include <vector>
 
-#include "Verify.hpp"
-
 namespace ezio {
 
 class Value;

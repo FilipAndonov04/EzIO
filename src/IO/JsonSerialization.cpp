@@ -94,7 +94,7 @@ void serializeJson(std::ostream& os, const Array& array) {
 }
 
 void serializeJson(std::ostream& os, const Object& object) {
-	if (object.getMemberCount() == 0) {
+	if (object.size() == 0) {
 		os << "{}";
 		return;
 	}
@@ -108,7 +108,7 @@ void serializeJson(std::ostream& os, const Object& object) {
 		os << '\"' << member.first << "\": ";
 		serializeJson(os, member.second);
 
-		if (++iterated != object.getMemberCount()) {
+		if (++iterated != object.size()) {
 			os << ',';
 		}
 		os << '\n';
