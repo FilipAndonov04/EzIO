@@ -94,7 +94,7 @@ void serializeJson(std::ostream& os, const Array& array) {
 }
 
 void serializeJson(std::ostream& os, const Object& object) {
-	if (object.isEmpty() == 0) {
+	if (object.isEmpty()) {
 		os << "{}";
 		return;
 	}
