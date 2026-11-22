@@ -1,4 +1,4 @@
-#include "IO/Tokenizer/Tokenizer.hpp"
+#include "IO/JsonParsing.hpp"
 
 #include <sstream>
 #include <stdexcept>
@@ -9,30 +9,7 @@ namespace ezio {
 
 constexpr char ERROR_MESSAGE_INPUT_STREAM_ENDED[] = "input stream ended";
 
-JsonToken JsonTokenizer::parseToken(std::istream& is) const {
-	char ch;
-	if (!(is >> ch)) {
-		throw std::exception(ERROR_MESSAGE_INPUT_STREAM_ENDED);
-	}
-
-	if (isSign(ch)) {
-		return parseSign(ch);
-	}
-
-	if (isQuote(ch)) {
-		return parseText(is);
-	}
-
-	is.unget();
-
-	if (isDigit(ch) || isDash(ch)) {
-		return parseNumber(is);
-	}
-
-	return parseKeyword(readKeyword(is));
-}
-
-JsonToken JsonTokenizer::parseSign(char sign) const {
+static JsonToken parseSign(char sign) {
 	JsonToken token = [](char sign) {
 		switch (sign) {
 		case '{':
@@ -54,7 +31,7 @@ JsonToken JsonTokenizer::parseSign(char sign) const {
 	return token;
 }
 
-JsonToken JsonTokenizer::parseText(std::istream& is) const {
+static JsonToken parseText(std::istream& is) {
 	std::string result;
 
 	bool isEscaped = false;
@@ -99,7 +76,7 @@ JsonToken JsonTokenizer::parseText(std::istream& is) const {
 	return JsonToken{JsonTokenType::Text, std::move(result)};
 }
 
-JsonToken JsonTokenizer::parseNumber(std::istream& is) const {
+static JsonToken parseNumber(std::istream& is) {
 	double num;
 	if (!(is >> num)) {
 		throw std::exception("could not read a number");
@@ -108,7 +85,7 @@ JsonToken JsonTokenizer::parseNumber(std::istream& is) const {
 	return JsonToken{JsonTokenType::Number, std::to_string(num)};
 }
 
-JsonToken JsonTokenizer::parseKeyword(std::string_view keyword) const {
+static JsonToken parseKeyword(std::string_view keyword) {
 	if (keyword == JSON_CONSTANT_TRUE) {
 		return JsonToken{JsonTokenType::True, std::string(JSON_CONSTANT_TRUE)};
 	} if (keyword == JSON_CONSTANT_FALSE) {
@@ -120,7 +97,7 @@ JsonToken JsonTokenizer::parseKeyword(std::string_view keyword) const {
 	throw std::exception("invalid token");
 }
 
-bool JsonTokenizer::isSign(char sign) const {
+static bool isSign(char sign) {
 	switch (sign) {
 	case '{':
 	case '}':
@@ -134,19 +111,19 @@ bool JsonTokenizer::isSign(char sign) const {
 	};
 }
 
-bool JsonTokenizer::isDigit(char ch) const {
+static bool isDigit(char ch) {
 	return ch >= '0' && ch <= '9';
 }
 
-bool JsonTokenizer::isDash(char ch) const {
+static bool isDash(char ch) {
 	return ch == '-';
 }
 
-bool JsonTokenizer::isQuote(char ch) const {
+static bool isQuote(char ch) {
 	return ch == '\"';
 }
 
-std::string JsonTokenizer::readKeyword(std::istream& is) const {
+static std::string readKeyword(std::istream& is) {
 	std::string res;
 	while (true) {
 		char ch;
@@ -161,6 +138,29 @@ std::string JsonTokenizer::readKeyword(std::istream& is) const {
 
 		res.push_back(ch);
 	}
+}
+
+JsonToken parseJsonToken(std::istream& is) {
+	char ch;
+	if (!(is >> ch)) {
+		throw std::exception(ERROR_MESSAGE_INPUT_STREAM_ENDED);
+	}
+
+	if (isSign(ch)) {
+		return parseSign(ch);
+	}
+
+	if (isQuote(ch)) {
+		return parseText(is);
+	}
+
+	is.unget();
+
+	if (isDigit(ch) || isDash(ch)) {
+		return parseNumber(is);
+	}
+
+	return parseKeyword(readKeyword(is));
 }
 
 }

@@ -58,21 +58,19 @@ int main() {
 	};
 
 	std::ofstream ofs(RESOURCE_PATH "file2.json");
-	ezio::JsonSerializer s(ofs);
 	auto o = deck.serialize();
-	s.serialize(o);
+	ezio::serializeJson(ofs, o);
 	ofs.close();
 
 	try {
 		std::ifstream ifs(RESOURCE_PATH "file2.json");
-		ezio::JsonDeserializer d(ifs);
-		auto val = d.deserialize();
-		s.setOutputStream(std::cout);
-		s.serialize(val);
+		auto val = ezio::deserializeJson(ifs);
+		ezio::serializeJson(std::cout, val);
 		std::cout << '\n';
+
 		deck.deserialize(val);
 		auto x = deck.serialize();
-		s.serialize(x);
+		ezio::serializeJson(std::cout, x);
 	} catch (const std::exception& e) {
 		std::cout << e.what() << '\n';
 	}

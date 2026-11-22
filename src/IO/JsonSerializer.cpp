@@ -1,127 +1,122 @@
 #include "IO/JsonSerializer.hpp"
 
-#include <iostream>
+#include <ostream>
 
 #include "Value/Value.hpp"
 #include "IO/JsonConstants.hpp"
 
 namespace ezio {
 
-JsonSerializer::JsonSerializer(std::ostream& outputStream) 
-	: outputStream(&outputStream) {}
+static unsigned tabs = 0;
 
-void JsonSerializer::serialize(const Value& value) {
+static void startNewLine(std::ostream& os) {
+	unsigned t = tabs;
+	while (t-- > 0) {
+		os << '\t';
+	}
+}
+
+void serializeJson(std::ostream& os, const Value& value) {
 	if (value.isNumber()) {
-		serialize(value.asNumber());
+		serializeJson(os, value.asNumber());
 	} else if (value.isBoolean()) {
-		serialize(value.asBoolean());
+		serializeJson(os, value.asBoolean());
 	} else if (value.isString()) {
-		serialize(value.asString());
+		serializeJson(os, value.asString());
 	} else if (value.isArray()) {
-		serialize(value.asArray());
+		serializeJson(os, value.asArray());
 	} else if (value.isObject()) {
-		serialize(value.asObject());
+		serializeJson(os, value.asObject());
 	} else if (value.isNull()) {
-		(*outputStream) << JSON_CONSTANT_NULL;
+		os << JSON_CONSTANT_NULL;
 	} else {
 		throw std::exception("invalid value");
 	}
 }
 
-void JsonSerializer::serialize(double number) { 
-	(*outputStream) << number; 
+void serializeJson(std::ostream& os, double number) {
+	os << number;
 }
 
-void JsonSerializer::serialize(const std::string& string) {
-	(*outputStream) << '\"'; 
+void serializeJson(std::ostream& os, const std::string& string) {
+	os << '\"';
 
 	for (char cur : string) {
 		switch (cur) {
 		case '\n':
-			(*outputStream) << "\\n";
+			os << "\\n";
 			break;
 		case '\t':
-			(*outputStream) << "\\t";
+			os << "\\t";
 			break;
 		case '\\':
-			(*outputStream) << "\\\\";
+			os << "\\\\";
 			break;
 		case '\"':
-			(*outputStream) << "\\\"";
+			os << "\\\"";
 			break;
 		default:
-			(*outputStream) << cur;
+			os << cur;
 			break;
 		}
 	}
 
-	(*outputStream) << '\"';
+	os << '\"';
 }
 
-void JsonSerializer::serialize(bool boolean) {
+void serializeJson(std::ostream& os, bool boolean) {
 	std::string_view text = boolean ? JSON_CONSTANT_TRUE : JSON_CONSTANT_FALSE;
-	(*outputStream) << text;
+	os << text;
 }
 
-void JsonSerializer::serialize(const Array& array) {
+void serializeJson(std::ostream& os, const Array& array) {
 	if (array.isEmpty()) {
-		(*outputStream) << "[]";
+		os << "[]";
 		return;
 	}
 
-	(*outputStream) << "[\n";
+	os << "[\n";
 	tabs++;
 
 	for (size_t i = 0; i < array.getSize(); i++) {
-		startNewLine();
-		serialize(array[i]);
+		startNewLine(os);
+		serializeJson(os, array[i]);
 		
 		if (i != array.getSize() - 1) {
-			(*outputStream) << ',';
+			os << ',';
 		}
-		(*outputStream) << '\n';
+		os << '\n';
 	}
 
 	tabs--;
-	startNewLine();
-	(*outputStream) << ']';
+	startNewLine(os);
+	os << ']';
 }
 
-void JsonSerializer::serialize(const Object& object) {
+void serializeJson(std::ostream& os, const Object& object) {
 	if (object.getMemberCount() == 0) {
-		(*outputStream) << "{}";
+		os << "{}";
 		return;
 	}
 
-	(*outputStream) << "{\n";
+	os << "{\n";
 	tabs++;
 
 	size_t iterated = 0;
 	for (const auto& member : object) {
-		startNewLine();
-		(*outputStream) << '\"' << member.first << "\": ";
-		serialize(member.second);
+		startNewLine(os);
+		os << '\"' << member.first << "\": ";
+		serializeJson(os, member.second);
 
 		if (++iterated != object.getMemberCount()) {
-			(*outputStream) << ',';
+			os << ',';
 		}
-		(*outputStream) << '\n';
+		os << '\n';
 	}
 
 	tabs--;
-	startNewLine();
-	(*outputStream) << "}";
-}
-
-void JsonSerializer::setOutputStream(std::ostream& outputStream) {
-	this->outputStream = &outputStream;
-}
-
-void JsonSerializer::startNewLine() {
-	unsigned t = tabs;
-	while (t-- > 0) {
-		(*outputStream) << '\t';
-	}
+	startNewLine(os);
+	os << "}";
 }
 
 }

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <ios>
+
 namespace ezio {
 
 enum class JsonTokenType {
@@ -15,5 +18,12 @@ enum class JsonTokenType {
 	Colon,
 	Comma
 };
+
+struct JsonToken {
+	JsonTokenType type;
+	std::string payload;
+};
+
+JsonToken parseJsonToken(std::istream& is);
 
 }
