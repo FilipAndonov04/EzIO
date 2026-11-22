@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IO/Json/Tokenizer/Token.hpp"
+#include "IO/Tokenizer/Token.hpp"
 
 namespace ezio {
 

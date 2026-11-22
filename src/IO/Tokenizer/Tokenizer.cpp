@@ -1,9 +1,9 @@
-#include "IO/Json/Tokenizer/Tokenizer.hpp"
+#include "IO/Tokenizer/Tokenizer.hpp"
 
 #include <sstream>
 #include <stdexcept>
 
-#include "IO/Json/JsonConstants.hpp"
+#include "IO/JsonConstants.hpp"
 
 namespace ezio {
 

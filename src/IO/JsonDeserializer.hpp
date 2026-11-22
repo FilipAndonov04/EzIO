@@ -2,21 +2,21 @@
 
 #include <ios>
 
-#include "IO/Deserializer.hpp"
-#include "IO/Json/Tokenizer/Tokenizer.hpp"
+#include "Value/Value.hpp"
+#include "IO/Tokenizer/Tokenizer.hpp"
 
 namespace ezio {
 
-class JsonDeserializer : public Deserializer {
+class JsonDeserializer {
 public:
 	JsonDeserializer(std::istream& inputStream);
 
-	Value deserialize() override;
-	double deserializeNumber() override;
-	std::string deserializeString() override;
-	bool deserializeBoolean() override;
-	Array deserializeArray() override;
-	Object deserializeObject() override;
+	Value deserialize();
+	double deserializeNumber();
+	std::string deserializeString();
+	bool deserializeBoolean();
+	Array deserializeArray();
+	Object deserializeObject();
 
 	void setInputStream(std::istream& inputStream);
 

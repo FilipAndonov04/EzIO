@@ -1,6 +1,6 @@
-#include "IO/Json/JsonDeserializer.hpp"
+#include "IO/JsonDeserializer.hpp"
 
-#include "IO/Json/JsonConstants.hpp"
+#include "IO/JsonConstants.hpp"
 
 namespace ezio {
 

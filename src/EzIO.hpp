@@ -2,7 +2,5 @@
 
 #include "Value/Value.hpp"
 
-#include "IO/Serializer.hpp"
-#include "IO/Deserializer.hpp"
-#include "IO/Json/JsonSerializer.hpp"
-#include "IO/Json/JsonDeserializer.hpp"
+#include "IO/JsonSerializer.hpp"
+#include "IO/JsonDeserializer.hpp"
