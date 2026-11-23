@@ -154,10 +154,4 @@ const Object& Value::asObjectOrDefault() const {
     return DEFAULT_OBJECT;
 }
 
-void Value::assertConversion(bool isValid, const char* msg) const {
-    if (!isValid) {
-        throw std::exception(msg);
-    }
-}
-
 }

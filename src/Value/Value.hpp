@@ -60,9 +60,6 @@ public:
 	const Object& asObjectOrDefault() const;
 
 private:
-	void assertConversion(bool isValid, const char* msg) const;
-
-private:
 	std::variant<std::monostate, double, bool, std::string, Array, Object> data;
 };
 
