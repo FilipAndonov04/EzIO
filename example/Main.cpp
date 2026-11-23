@@ -23,9 +23,9 @@ ezio::Object toObject(Point p) {
 }
 
 void fromObject(const ezio::Object& o, Point& p) {
-	strncpy_s(p.name, o["name"].asString().c_str(), 100);
-	p.x = o["x"].asNumber();
-	p.y = o["y"].asNumber();
+	strncpy_s(p.name, o["name"].asStringOrDefault().c_str(), 100);
+	p.x = o["x"].asNumberOrDefault();
+	p.y = o["y"].asNumberOrDefault();
 }
 
 ezio::Object toObject(const Points& points) {
@@ -40,10 +40,10 @@ ezio::Object toObject(const Points& points) {
 }
 
 void fromObject(const ezio::Object& o, Points& points) {
-	auto& arr = o["points"].asArray();
+	auto& arr = o["points"].asArrayOrDefault();
 	for (const auto& el : arr) {
 		Point p;
-		fromObject(el.asObject(), p);
+		fromObject(el.asObjectOrDefault(), p);
 		points.data.push_back(p);
 	}
 }

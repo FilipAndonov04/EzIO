@@ -33,36 +33,31 @@ public:
 	Value& operator=(Object object);
 	~Value() = default;
 
-	void clear();
+	void clear() noexcept;
 
-	bool isNull() const;
-	bool isNumber() const;
-	bool isBoolean() const;
-	bool isString() const;
-	bool isArray() const;
-	bool isObject() const;
+	bool isNull() const noexcept;
+	bool isNumber() const noexcept;
+	bool isBoolean() const noexcept;
+	bool isString() const noexcept;
+	bool isArray() const noexcept;
+	bool isObject() const noexcept;
 
-	double asNumber() const;
-	double& asNumber();
-	bool asBoolean() const;
-	bool& asBoolean();
-	const std::string& asString() const;
-	std::string& asString();
-	const Array& asArray() const;
-	Array& asArray();
-	const Object& asObject() const;
-	Object& asObject();
-	
-	const double* asNumberPtr() const;
-	double* asNumberPtr();
-	const bool* asBooleanPtr() const;
-	bool* asBooleanPtr();
-	const std::string* asStringPtr() const;
-	std::string* asStringPtr();
-	const Array* asArrayPtr() const;
-	Array* asArrayPtr();
-	const Object* asObjectPtr() const;
-	Object* asObjectPtr();
+	const double* asNumber() const noexcept;
+	double* asNumber() noexcept;
+	const bool* asBoolean() const noexcept;
+	bool* asBoolean() noexcept;
+	const std::string* asString() const noexcept;
+	std::string* asString() noexcept;
+	const Array* asArray() const noexcept;
+	Array* asArray() noexcept;
+	const Object* asObject() const noexcept;
+	Object* asObject() noexcept;
+
+	double asNumberOrDefault() const;
+	bool asBooleanOrDefault() const;
+	const std::string& asStringOrDefault() const;
+	const Array& asArrayOrDefault() const;
+	const Object& asObjectOrDefault() const;
 
 private:
 	void assertConversion(bool isValid, const char* msg) const;

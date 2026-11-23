@@ -42,123 +42,116 @@ Value& Value::operator=(Object object) {
     return *this;
 }
 
-void Value::clear() {
+void Value::clear() noexcept {
     data.emplace<std::monostate>();
 }
 
-bool Value::isNull() const {
+bool Value::isNull() const noexcept {
     return holds_alternative<std::monostate>(data);
 }
 
-bool Value::isNumber() const {
+bool Value::isNumber() const noexcept {
     return std::holds_alternative<double>(data);
 }
 
-bool Value::isBoolean() const {
+bool Value::isBoolean() const noexcept {
     return std::holds_alternative<bool>(data);
 }
 
-bool Value::isString() const {
+bool Value::isString() const noexcept {
     return std::holds_alternative<std::string>(data);
 }
 
-bool Value::isArray() const {
+bool Value::isArray() const noexcept {
     return std::holds_alternative<Array>(data);
 }
 
-bool Value::isObject() const {
+bool Value::isObject() const noexcept {
     return std::holds_alternative<Object>(data);
 }
 
-double Value::asNumber() const {
-    assertConversion(isNumber(), "value is not a number");
-    return std::get<double>(data);
-}
-
-double& Value::asNumber() {
-    assertConversion(isNumber(), "value is not a number");
-    return std::get<double>(data);
-}
-
-bool Value::asBoolean() const {
-    assertConversion(isBoolean(), "value is not a boolean");
-    return std::get<bool>(data);
-}
-
-bool& Value::asBoolean() {
-    assertConversion(isBoolean(), "value is not a boolean");
-    return std::get<bool>(data);
-}
-
-const std::string& Value::asString() const {
-    assertConversion(isString(), "value is not a string");
-    return std::get<std::string>(data);
-}
-
-std::string& Value::asString() {
-    assertConversion(isString(), "value is not a string");
-    return std::get<std::string>(data);
-}
-
-const Array& Value::asArray() const {
-    assertConversion(isArray(), "value is not an array");
-    return std::get<Array>(data);
-}
-
-Array& Value::asArray() {
-    assertConversion(isArray(), "value is not an array");
-    return std::get<Array>(data);
-}
-
-const Object& Value::asObject() const {
-    assertConversion(isObject(), "value is not an object");
-    return std::get<Object>(data);
-}
-
-Object& Value::asObject() {
-    assertConversion(isObject(), "value is not an object");
-    return std::get<Object>(data);
-}
-
-const double* Value::asNumberPtr() const {
+const double* Value::asNumber() const noexcept {
     return std::get_if<double>(&data);
 }
 
-double* Value::asNumberPtr() {
+double* Value::asNumber() noexcept {
     return std::get_if<double>(&data);
 }
 
-const bool* Value::asBooleanPtr() const {
+const bool* Value::asBoolean() const noexcept {
     return std::get_if<bool>(&data);
 }
 
-bool* Value::asBooleanPtr() {
+bool* Value::asBoolean() noexcept {
     return std::get_if<bool>(&data);
 
 }
 
-const std::string* Value::asStringPtr() const {
+const std::string* Value::asString() const noexcept {
     return std::get_if<std::string>(&data);
 }
 
-std::string* Value::asStringPtr() {
+std::string* Value::asString() noexcept {
     return std::get_if<std::string>(&data);
 }
 
-const Array* Value::asArrayPtr() const {
+const Array* Value::asArray() const noexcept {
     return std::get_if<Array>(&data);
 }
 
-Array* Value::asArrayPtr() {
+Array* Value::asArray() noexcept {
     return std::get_if<Array>(&data);
 }
 
-const Object* Value::asObjectPtr() const {
+const Object* Value::asObject() const noexcept {
     return std::get_if<Object>(&data);
 }
 
-Object* Value::asObjectPtr() {
+Object* Value::asObject() noexcept {
     return std::get_if<Object>(&data);
+}
+
+double Value::asNumberOrDefault() const {
+    if (const double* num = asNumber()) {
+        return *num;
+    }
+
+    return 0.0;
+}
+
+bool Value::asBooleanOrDefault() const {
+    if (const bool* b = asBoolean()) {
+        return *b;
+    }
+
+    return false;
+}
+
+const std::string& Value::asStringOrDefault() const {
+    if (const std::string* str = asString()) {
+        return *str;
+    }
+
+    static const std::string DEFAULT_STRING;
+    return DEFAULT_STRING;
+}
+
+const Array& Value::asArrayOrDefault() const {
+    if (const Array* arr = asArray()) {
+        return *arr;
+    }
+
+    static const Array DEFAULT_ARRAY;
+    return DEFAULT_ARRAY;
+}
+
+const Object& Value::asObjectOrDefault() const {
+    if (const Object* obj = asObject()) {
+        return *obj;
+    }
+
+    static const Object DEFAULT_OBJECT;
+    return DEFAULT_OBJECT;
 }
 
 void Value::assertConversion(bool isValid, const char* msg) const {

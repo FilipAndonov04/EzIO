@@ -17,16 +17,16 @@ static void startNewLine(std::ostream& os) {
 }
 
 void serializeJson(std::ostream& os, const Value& value) {
-	if (value.isNumber()) {
-		serializeJson(os, value.asNumber());
-	} else if (value.isBoolean()) {
-		serializeJson(os, value.asBoolean());
-	} else if (value.isString()) {
-		serializeJson(os, value.asString());
-	} else if (value.isArray()) {
-		serializeJson(os, value.asArray());
-	} else if (value.isObject()) {
-		serializeJson(os, value.asObject());
+	if (const double* num = value.asNumber()) {
+		serializeJson(os, *num);
+	} else if (const bool* b = value.asBoolean()) {
+		serializeJson(os, *b);
+	} else if (const std::string* str = value.asString()) {
+		serializeJson(os, *str);
+	} else if (const Array* arr = value.asArray()) {
+		serializeJson(os, *arr);
+	} else if (const Object* obj = value.asObject()) {
+		serializeJson(os, *obj);
 	} else if (value.isNull()) {
 		os << JSON_CONSTANT_NULL;
 	} else {
