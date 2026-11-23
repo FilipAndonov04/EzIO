@@ -111,7 +111,7 @@ Object* Value::asObject() noexcept {
     return std::get_if<Object>(&data);
 }
 
-double Value::asNumberOrDefault() const {
+double Value::asNumberOrDefault() const noexcept {
     if (const double* num = asNumber()) {
         return *num;
     }
@@ -119,7 +119,7 @@ double Value::asNumberOrDefault() const {
     return 0.0;
 }
 
-bool Value::asBooleanOrDefault() const {
+bool Value::asBooleanOrDefault() const noexcept {
     if (const bool* b = asBoolean()) {
         return *b;
     }
@@ -127,30 +127,33 @@ bool Value::asBooleanOrDefault() const {
     return false;
 }
 
-const std::string& Value::asStringOrDefault() const {
+static const std::string DEFAULT_STRING;
+
+const std::string& Value::asStringOrDefault() const noexcept {
     if (const std::string* str = asString()) {
         return *str;
     }
 
-    static const std::string DEFAULT_STRING;
     return DEFAULT_STRING;
 }
 
-const Array& Value::asArrayOrDefault() const {
+static const Array DEFAULT_ARRAY;
+
+const Array& Value::asArrayOrDefault() const noexcept {
     if (const Array* arr = asArray()) {
         return *arr;
     }
 
-    static const Array DEFAULT_ARRAY;
     return DEFAULT_ARRAY;
 }
 
-const Object& Value::asObjectOrDefault() const {
+static const Object DEFAULT_OBJECT;
+
+const Object& Value::asObjectOrDefault() const noexcept {
     if (const Object* obj = asObject()) {
         return *obj;
     }
 
-    static const Object DEFAULT_OBJECT;
     return DEFAULT_OBJECT;
 }
 

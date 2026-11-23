@@ -53,11 +53,11 @@ public:
 	const Object* asObject() const noexcept;
 	Object* asObject() noexcept;
 
-	double asNumberOrDefault() const;
-	bool asBooleanOrDefault() const;
-	const std::string& asStringOrDefault() const;
-	const Array& asArrayOrDefault() const;
-	const Object& asObjectOrDefault() const;
+	double asNumberOrDefault() const noexcept;
+	bool asBooleanOrDefault() const noexcept;
+	const std::string& asStringOrDefault() const noexcept;
+	const Array& asArrayOrDefault() const noexcept;
+	const Object& asObjectOrDefault() const noexcept;
 
 private:
 	std::variant<std::monostate, double, bool, std::string, Array, Object> data;
