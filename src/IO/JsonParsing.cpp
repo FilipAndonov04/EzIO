@@ -13,17 +13,17 @@ static JsonToken parseSign(char sign) {
 	JsonToken token = [](char sign) {
 		switch (sign) {
 		case '{':
-			return JsonToken{JsonTokenType::OpenCurlyBracket, "{"};
+			return JsonToken{JsonTokenType::OpenCurlyBracket};
 		case '}':
-			return JsonToken{JsonTokenType::CloseCurlyBracket, "}"};
+			return JsonToken{JsonTokenType::CloseCurlyBracket};
 		case '[':
-			return JsonToken{JsonTokenType::OpenSquareBracket, "["};
+			return JsonToken{JsonTokenType::OpenSquareBracket};
 		case ']':
-			return JsonToken{JsonTokenType::CloseSquareBracket, "]"};
+			return JsonToken{JsonTokenType::CloseSquareBracket};
 		case ':':
-			return JsonToken{JsonTokenType::Colon, ":"};
+			return JsonToken{JsonTokenType::Colon};
 		case ',':
-			return JsonToken{JsonTokenType::Comma, ","};
+			return JsonToken{JsonTokenType::Comma};
 		default:
 			throw std::runtime_error("invalid token sign");
 		}
@@ -32,7 +32,8 @@ static JsonToken parseSign(char sign) {
 }
 
 static JsonToken parseText(std::istream& is) {
-	std::string result;
+	JsonToken token{JsonTokenType::Text, std::string{}};
+	std::string& result = std::get<std::string>(token.payload);
 
 	bool isEscaped = false;
 	while (true) {
@@ -73,7 +74,7 @@ static JsonToken parseText(std::istream& is) {
 		result.push_back(ch);
 	}
 
-	return JsonToken{JsonTokenType::Text, std::move(result)};
+	return token;
 }
 
 static JsonToken parseNumber(std::istream& is) {
@@ -82,16 +83,16 @@ static JsonToken parseNumber(std::istream& is) {
 		throw std::runtime_error("could not read a number");
 	}
 
-	return JsonToken{JsonTokenType::Number, std::to_string(num)};
+	return JsonToken{JsonTokenType::Number, num};
 }
 
 static JsonToken parseKeyword(std::string_view keyword) {
 	if (keyword == JSON_CONSTANT_TRUE) {
-		return JsonToken{JsonTokenType::True, std::string(JSON_CONSTANT_TRUE)};
+		return JsonToken{JsonTokenType::True};
 	} if (keyword == JSON_CONSTANT_FALSE) {
-		return JsonToken{JsonTokenType::False, std::string(JSON_CONSTANT_FALSE)};
+		return JsonToken{JsonTokenType::False};
 	} else if (keyword == JSON_CONSTANT_NULL) {
-		return JsonToken{JsonTokenType::Null, std::string(JSON_CONSTANT_NULL)};
+		return JsonToken{JsonTokenType::Null};
 	}
 
 	throw std::runtime_error("invalid token");
@@ -138,6 +139,7 @@ static std::string readKeyword(std::istream& is) {
 
 		res.push_back(ch);
 	}
+	return res;
 }
 
 JsonToken parseJsonToken(std::istream& is) {

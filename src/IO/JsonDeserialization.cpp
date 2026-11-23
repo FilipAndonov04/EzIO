@@ -10,12 +10,12 @@ static Value createJsonValue(JsonToken token, std::istream& is);
 
 static double createJsonNumber(JsonToken token) {
 	verify(token.type == JsonTokenType::Number, "invalid token");
-	return std::stod(token.payload);
+	return std::get<double>(token.payload);
 }
 
 static std::string createJsonString(JsonToken token) {
 	verify(token.type == JsonTokenType::Text, "invalid token");
-	return std::move(token.payload);
+	return std::move(std::get<std::string>(token.payload));
 }
 
 static bool createJsonBoolean(JsonToken token) {
@@ -60,7 +60,7 @@ static Object createJsonObject(JsonToken token, std::istream& is) {
 
 	while (true) {
 		verify(token.type == JsonTokenType::Text, "object member stats with its name");
-		std::string memberName = std::move(token.payload);
+		std::string memberName = std::move(std::get<std::string>(token.payload));
 
 		token = parseJsonToken(is);
 		verify(token.type == JsonTokenType::Colon, "object member is followed with a colon");

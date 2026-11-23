@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <variant>
 #include <ios>
 
 namespace ezio {
@@ -21,7 +22,7 @@ enum class JsonTokenType {
 
 struct JsonToken {
 	JsonTokenType type;
-	std::string payload;
+	std::variant<double, std::string> payload;
 };
 
 JsonToken parseJsonToken(std::istream& is);
