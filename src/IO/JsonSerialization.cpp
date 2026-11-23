@@ -22,7 +22,7 @@ void serializeJson(std::ostream& os, const Value& value) {
 	} else if (const bool* b = value.asBoolean()) {
 		serializeJson(os, *b);
 	} else if (const std::string* str = value.asString()) {
-		serializeJson(os, *str);
+		serializeJson(os, std::string_view(*str));
 	} else if (const Array* arr = value.asArray()) {
 		serializeJson(os, *arr);
 	} else if (const Object* obj = value.asObject()) {
@@ -38,7 +38,7 @@ void serializeJson(std::ostream& os, double number) {
 	os << number;
 }
 
-void serializeJson(std::ostream& os, const std::string& string) {
+void serializeJson(std::ostream& os, std::string_view string) {
 	os << '\"';
 
 	for (char cur : string) {
