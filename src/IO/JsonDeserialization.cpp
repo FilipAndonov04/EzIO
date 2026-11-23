@@ -2,7 +2,7 @@
 
 #include "IO/JsonConstants.hpp"
 #include "IO/JsonParsing.hpp"
-#include "Verify.hpp"
+#include "Details/Verify.hpp"
 
 namespace ezio {
 
