@@ -9,7 +9,7 @@
             "installDir": "${sourceDir}/out/install/${presetName}",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "cl.exe",
-                "CMAKE_CXX_STANDARD": "20"
+                "CMAKE_CXX_STANDARD": "26"
             },
             "condition": {
                 "type": "equals",

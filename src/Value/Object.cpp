@@ -6,7 +6,7 @@ namespace ezio {
 
 static const Value EMPTY_VALUE;
 
-const Value& Object::operator[](const std::string& name) const {
+const Value& Object::operator[](std::string_view name) const {
 	if (auto it = members.find(name); it != members.end()) {
 		return it->second;
 	}
@@ -14,24 +14,37 @@ const Value& Object::operator[](const std::string& name) const {
 	return EMPTY_VALUE;
 }
 
-Value& Object::operator[](const std::string& name) {
-	return members[name];
+Value& Object::operator[](std::string_view name) {
+	if (auto it = members.find(name); it != members.end()) {
+		return it->second;
+	}
+
+	auto [it, _] = members.emplace(name, Value{});
+	return it->second;
 }
 
-bool Object::hasMember(const std::string& name) const {
+bool Object::hasMember(std::string_view name) const {
 	return members.find(name) != members.end();
 }
 
-void Object::addMember(const std::string& name, const Value& value) { 
-	members[name] = value;
+void Object::addMember(std::string_view name, const Value& value) { 
+	auto [it, inserted] = members.emplace(name, value);
+	if (!inserted) {
+		it->second = value;
+	}
 }
 
-void Object::addMember(const std::string& name, Value&& value) {
-	members[name] = std::move(value);
+void Object::addMember(std::string_view name, Value&& value) {
+	auto [it, inserted] = members.emplace(name, std::move(value));
+	if (!inserted) {
+		it->second = std::move(value);
+	}
 }
 
-void Object::removeMember(const std::string& name) {
-	members.erase(name);
+void Object::removeMember(std::string_view name) {
+	if (auto it = members.find(name); it != members.end()) {
+		members.erase(it);
+	}
 }
 
 }

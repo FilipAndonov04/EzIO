@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <unordered_map>
 
 namespace ezio {
@@ -28,16 +29,33 @@ public:
 
 	void clear() noexcept { members.clear(); }
 
-	const Value& operator[](const std::string& name) const;
-	Value& operator[](const std::string& name);
+	const Value& operator[](std::string_view name) const;
+	Value& operator[](std::string_view name);
 
-	bool hasMember(const std::string& name) const;
-	void addMember(const std::string& name, const Value& value);
-	void addMember(const std::string& name, Value&& value);
-	void removeMember(const std::string& name);
+	bool hasMember(std::string_view name) const;
+	void addMember(std::string_view name, const Value& value);
+	void addMember(std::string_view name, Value&& value);
+	void removeMember(std::string_view name);
 
 private:
-	std::unordered_map<std::string, Value> members;
+	struct StringHash {
+		using is_transparent = void;
+
+		std::size_t operator()(std::string_view s) const noexcept {
+			return std::hash<std::string_view>{}(s);
+		}
+	};
+
+	struct StringEqual {
+		using is_transparent = void;
+
+		bool operator()(std::string_view a, std::string_view b) const noexcept {
+			return a == b;
+		}
+	};
+
+private:
+	std::unordered_map<std::string, Value, StringHash, StringEqual> members;
 };
 
 }
