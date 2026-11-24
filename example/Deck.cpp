@@ -25,13 +25,20 @@ ezio::Value Deck::serialize() const {
 }
 
 void Deck::deserialize(const ezio::Value& value) {
-    const ezio::Object& o = value.asObjectOrDefault();
-    const ezio::Array& arr = o["cards"].asArrayOrDefault();
+    const ezio::Object* obj = value.asObject();
+    if (obj == nullptr) {
+        return;
+    }
+
+    const ezio::Array* arr = (*obj)["cards"].asArray();
+    if (arr == nullptr) {
+        return;
+    }
 
     cards.clear();
-    cards.resize(arr.size());
+    cards.resize(arr->size());
     size_t i = 0;
-    for (auto& el : arr) {
+    for (auto& el : *arr) {
         cards[i++].deserialize(el);
     }
 }
