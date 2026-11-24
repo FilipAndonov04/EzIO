@@ -127,34 +127,34 @@ bool Value::asBooleanOrDefault() const noexcept {
     return false;
 }
 
-static const std::string DEFAULT_STRING;
+static const std::string EMPTY_STRING;
 
 const std::string& Value::asStringOrDefault() const noexcept {
     if (const std::string* str = asString()) {
         return *str;
     }
 
-    return DEFAULT_STRING;
+    return EMPTY_STRING;
 }
 
-static const Array DEFAULT_ARRAY;
+static const Array EMPTY_ARRAY;
 
 const Array& Value::asArrayOrDefault() const noexcept {
     if (const Array* arr = asArray()) {
         return *arr;
     }
 
-    return DEFAULT_ARRAY;
+    return EMPTY_ARRAY;
 }
 
-static const Object DEFAULT_OBJECT;
+static const Object EMPTY_OBJECT;
 
 const Object& Value::asObjectOrDefault() const noexcept {
     if (const Object* obj = asObject()) {
         return *obj;
     }
 
-    return DEFAULT_OBJECT;
+    return EMPTY_OBJECT;
 }
 
 }
