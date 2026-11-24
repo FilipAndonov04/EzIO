@@ -139,7 +139,6 @@ static std::string readKeyword(std::istream& is) {
 
 		res.push_back(ch);
 	}
-	return res;
 }
 
 JsonToken parseJsonToken(std::istream& is) {

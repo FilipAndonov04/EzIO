@@ -4,12 +4,18 @@
 
 namespace ezio {
 
+static const Value EMPTY_VALUE;
+
 const Value& Object::operator[](const std::string& name) const {
+	if (auto it = members.find(name); it != members.end()) {
+		return it->second;
+	}
+
 	return members.at(name);
 }
 
 Value& Object::operator[](const std::string& name) {
-	return members.at(name);
+	return members[name];
 }
 
 bool Object::hasMember(const std::string& name) const {
