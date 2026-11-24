@@ -11,7 +11,7 @@ const Value& Object::operator[](const std::string& name) const {
 		return it->second;
 	}
 
-	return members.at(name);
+	return EMPTY_VALUE;
 }
 
 Value& Object::operator[](const std::string& name) {
